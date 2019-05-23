@@ -9,11 +9,12 @@
 #---------------- Module General Import and Declarations ---------------
 
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 
 #-------------------- General Function:showRanks ---------------------
 
-def showRanksUnsorted(players, rows, columns):
+def showRanksUnsorted(players):
     """This will show a figure of the players ranks
         unsorted. Each cell will show a color representing 
         the rank that the player is.
@@ -26,15 +27,20 @@ def showRanksUnsorted(players, rows, columns):
             graphRanks: A numpy array using rgb to color
                 code the cells
             fig: The figure window that will be shown
-            ax: used to plot graph
+            ax: axis used to plot graph
+            size: allows me to create ranks
             r: used to track rows
             c: used to track columns
+            img: used to show image of the cells
         
         Output: Returns graphRanks and also shows it.
     """
     
     #- Makes sure there is enough cells to show all players
     #- by increasing the amount of rows and columns
+    
+    rows = 10
+    columns = 10
     
     while((rows*columns) < np.size(players)):
         rows = rows + 2
@@ -45,16 +51,17 @@ def showRanksUnsorted(players, rows, columns):
     
     r = 0
     c = 0
-    fig = plt.figure(figsize=(9.5, 4+(1./8)))
-    ax = fig.add_axes( (0.1, 0.1, 0.1, 0.1), frameon=False )
-    Ranks = np.zeros(np.size(players), 2)
+    fig = plt.figure(figsize=(5, 5))
+    ax = fig.add_axes( (0.0, 0.0, 1, 1), frameon=False )
+    size = np.size(players)
+    Ranks = np.ones((size, 2))
     graphRanks = np.zeros((rows, columns, 3), dtype='f')
     
     
     #- Runs through players inserting the rank and division
     #- into the Ranks array
     
-    for i in range(np.size(players)):
+    for i in range(size):
         for j in range(2):
             if(j == 0):
                 Ranks[i, j] = players[i].rank
@@ -65,7 +72,7 @@ def showRanksUnsorted(players, rows, columns):
     #- Runs through the Ranks array setting the colors of the cells
     #- Based on the values given
     
-    for i in range(np.size(players)):
+    for i in range(size):
         
         #- moves to next spot in graphRanks if needed
         if(c >= columns):
@@ -119,14 +126,98 @@ def showRanksUnsorted(players, rows, columns):
         elif(Ranks[i, 0] == 2 and Ranks[i, 1] == 1):
             graphRanks[r, c, :] = (.88, .88, .88)
             c = c + 1
-        
-                    
             
+        
+        #- Gold Ranks
+        
+        elif(Ranks[i, 0] == 3 and Ranks[i, 1] == 4):
+            graphRanks[r, c, :] = (.72, .64, .04)
+            c = c + 1
+        elif(Ranks[i, 0] == 3 and Ranks[i, 1] == 3):
+            graphRanks[r, c, :] = (.85, .64, .13)
+            c = c + 1
+        elif(Ranks[i, 0] == 3 and Ranks[i, 1] == 2):
+            graphRanks[r, c, :] = (.9, .7, .04)
+            c = c + 1
+        elif(Ranks[i, 0] == 3 and Ranks[i, 1] == 1):
+            graphRanks[r, c, :] = (.99, .84, .0)
+            c = c + 1
+        
+        
+        #- Platinum ranks
+        
+        elif(Ranks[i, 0] == 4 and Ranks[i, 1] == 4):
+            graphRanks[r, c, :] = (.18, .31, .31)
+            c = c + 1
+        elif(Ranks[i, 0] == 4 and Ranks[i, 1] == 3):
+            graphRanks[r, c, :] = (.0, .5, .5)
+            c = c + 1
+        elif(Ranks[i, 0] == 4 and Ranks[i, 1] == 2):
+            graphRanks[r, c, :] = (.0, .6, .6)
+            c = c + 1
+        elif(Ranks[i, 0] == 4 and Ranks[i, 1] == 1):
+            graphRanks[r, c, :] = (.13, .695, .66)
+            c = c + 1
+        
+        
+        #- Diamond ranks
+        
+        elif(Ranks[i, 0] == 5 and Ranks[i, 1] == 4):
+            graphRanks[r, c, :] = (.25, .25, .44)
+            c = c + 1
+        elif(Ranks[i, 0] == 5 and Ranks[i, 1] == 3):
+            graphRanks[r, c, :] = (.0, .0, .55)
+            c = c + 1
+        elif(Ranks[i, 0] == 5 and Ranks[i, 1] == 2):
+            graphRanks[r, c, :] = (.0, .0, .8)
+            c = c + 1
+        elif(Ranks[i, 0] == 5 and Ranks[i, 1] == 1):
+            graphRanks[r, c, :] = (.0, .0, .99)
+            c = c + 1  
+            
+        
+        #- Master Rank
+           
+        elif(Ranks[i, 0] == 6):
+            graphRanks[r, c, :] = (.5, .0, .5)
+            c = c + 1
+         
+        
+        #- GrandMaster Rank
+        
+        elif(Ranks[i, 0] == 7):
+            graphRanks[r, c, :] = (.58, .0, .82)
+            c = c + 1
+            
+        
+        #- Challenger Rank
+        
+        elif(Ranks[i, 0] == 8):
+            graphRanks[r, c, :] = (.99, .0, .0)
+            c = c + 1
+            
+            
+        #- Unranked
+        
+        else:
+            graphRanks[r, c, :] = (0, 0, 0)
+            c = c + 1
+            
+            
+    #- Runs through remaining cells seeting them to white
+    #- for empty
+            
+    while(r < rows):
+        while(c < columns):
+            graphRanks[r, c, :] = (.99, .99, .99)
+            c = c + 1
+        c = 0
+        r = r + 1
     
+    img = ax.imshow(graphRanks, interpolation='none',
+                extent=[0, rows, 0, columns],
+                aspect="auto",
+                zorder=0)
     
-    
-    
-    
-    
-    
+    plt.show()
     
