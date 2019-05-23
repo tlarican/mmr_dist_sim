@@ -1,6 +1,7 @@
 import numpy as np
 
 from Player import Player
+from Graphing import showRanksUnsorted
 
 
 class Model(object):
@@ -8,8 +9,13 @@ class Model(object):
         self.player_list = []
         for i in range(number_players):
             self.player_list.append(Player())
-
+        showRanksUnsorted(self.player_list)
         self.rank_mins = []
+        
 
     def _test_player_list_size(self):
         return len(self.player_list)
+
+#- Made this to test the graphing method
+
+bob = Model()
