@@ -1,4 +1,16 @@
+#=======================================================================
+#                           General Documentation
+
+"""Module that contains player class
+
+    see function docstring for description
+"""
+
+#---------------- Module General Import and Declarations ---------------
+
 import numpy as np
+
+#-------------------- Class: Player ------------------------------------
 
 #  TODO(Tyler): Create Player Tests
 class Player(object):
