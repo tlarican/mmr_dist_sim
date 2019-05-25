@@ -221,3 +221,62 @@ def showRanksUnsorted(players):
     
     plt.show()
     
+    #- End of showRanksUnsorted function
+
+
+def showMMR(players):
+    """This will provide a histogram of the players 
+        mmr distribution. It will also provide a graph of 
+        points and a line of best fit using the players mmr
+        and skill
+        
+        Variables:
+            players: list of player objects
+            mmr: an array of player mmr
+            skill: an array of player skill
+            size: The size of the players list
+            
+        Output: Prints the histogram and graph of data 
+    """
+    
+    #-Variable declarations
+    
+    size = np.size(players)
+    mmr = np.zeros(size)
+    skill = np.zeros(size)
+    
+    
+    #- Sets the data in the arrays for mmr and skill
+    
+    for i in range(size):
+        mmr[i] = players[i].mmr
+        skill[i] = players[i].skill
+    
+    
+    #-Plots the histogram
+    
+    plt.figure(1)
+    plt.title("Distribution of players by MMR")
+    plt.hist(mmr, bins = 10)
+    plt.xlabel("MMR")
+    plt.ylabel("Frequency")
+    
+    
+    
+    #- Graphs the scatter plot and line of best fit
+    
+    plt.figure(2)
+    plt.scatter(skill, mmr)
+    
+    #- Borrowed from https://stackoverflow.com/questions/22239691/code-for-best-fit-straight-line-of-a-scatter-plot-in-python
+    plt.plot(np.unique(skill), np.poly1d(np.polyfit(skill, mmr, 1))(np.unique(skill)), "r-")
+    
+    plt.title("Skill vs. MMR")
+    plt.axis([-2,10,0,2000])
+    plt.xlabel("Skill")
+    plt.ylabel("MMR")
+    
+    
+    #-Shows the plots
+    
+    plt.show()
