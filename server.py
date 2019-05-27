@@ -41,4 +41,12 @@ def pick_lobby(all_players):
     for i in ONLINE_COUNT / 20:
         match_1_result = match(online_players[:10])
         match_2_result = match(online_players[-10:])
+        #do something about the results (MMR and rank function)
         online_players = online_players[10:-10]
+        
+    #at this point the array should have less than 20 elements
+    if(online_players.size() >= 10):
+        match_result = match(online_players[:10])
+        #do something about the results (MMR and rank function)
+
+    
