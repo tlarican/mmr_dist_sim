@@ -54,7 +54,7 @@ def match(players):
     #- Updates non rank/mmr/lp values
     
     for i in range(10):
-        if(players[i].amountOfGamesPlayed == 9):
+        if(players[i].amountOfGamesPlayed == 8):
             players[i].rankUpMatch = True
         players[i].has_played = True
         players[i].amountOfGamesPlayed += 1                   
