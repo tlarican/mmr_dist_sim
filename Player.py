@@ -189,4 +189,30 @@ class Player(object):
                 self.rank = 8
                 
         self.rankUpMatch = False
-        self.lp = 0           
+        self.lp = 0 
+        
+#-------------------- Function: rankUp ------------------------------------   
+
+    def rankDown(self):
+       """Moves the player down in ranks
+       """     
+       
+       if(self.rank < 6):
+           if(self.division == 4 and self.rank == 0):
+               self.rank = 0
+           elif(self.division == 4):
+                self.rank -= 1
+                self.division = 1
+           else:
+                self.division -= 1
+       else:
+           self.rank -= 1
+           self.division = 1
+       
+       self.rankDownMatch = False
+       self.lp = 50
+       
+       
+       
+       
+       
