@@ -71,8 +71,13 @@ def handleMatchResults(players, winner, average_mmr):
             average_mmr = The average mmr of the match     
     """
     
+    #- If team one won
+    
     if(winner == 2):
         for i in range(TEAM_SIZE):
+            
+            #-Determines if the players are above or below average mmr
+            
             if(players[i].mmr < average_mmr):
                 players[i].mmr += 25
                 if(players[i].rankUpMatch == True):
@@ -112,11 +117,16 @@ def handleMatchResults(players, winner, average_mmr):
                     players.rankDownMatch = True
                 else:
                     players[i].lp -= 23
+    
+    #-If Team 2 won
                     
     else:
         for i in range(10):
             if(i < 5):
                 continue
+                
+            #- Determines if above or below average mmr
+            
             if(players[i].mmr < average_mmr):
                 players[i].mmr += 25
                 if(players[i].rankUpMatch == True):
