@@ -102,7 +102,7 @@ def handleMatchResults(players, winner, average_mmr):
             if(players[i].mmr < average_mmr):
                 players[i].mmr -= 15
                 if(players[i].rankDownMatch == True):
-                    players[i].rankDownMatch()
+                    players[i].rankDown()
                 elif((players[i].lp - 18) < 0):
                     players[i].lp = 0
                     players.rankDownMatch = True
@@ -111,7 +111,7 @@ def handleMatchResults(players, winner, average_mmr):
             else:
                 players[i].mmr -= 25
                 if(players[i].rankDownMatch == True):
-                    players[i].rankDownMatch()
+                    players[i].rankDown()
                 elif((players[i].lp - 23) < 0):
                     players[i].lp = 0
                     players.rankDownMatch = True
@@ -149,16 +149,16 @@ def handleMatchResults(players, winner, average_mmr):
             if(players[i].mmr < average_mmr):
                 players[i].mmr -= 15
                 if(players[i].rankDownMatch == True):
-                    players[i].rankDownMatch()
+                    players[i].rankDown()
                 elif((players[i].lp - 18) < 0):
                     players[i].lp = 0
-                    players.rankDownMatch = True
+                    players.rankDown = True
                 else:
                     players[i].lp -= 18
             else:
                 players[i].mmr -= 25
                 if(players[i].rankDownMatch == True):
-                    players[i].rankDownMatch()
+                    players[i].rankDown()
                 elif((players[i].lp - 23) < 0):
                     players[i].lp = 0
                     players.rankDownMatch = True
