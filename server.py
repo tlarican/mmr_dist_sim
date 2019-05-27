@@ -175,7 +175,6 @@ def handleMatchResults(players, winner, average_mmr):
                 else:
                     players[i].lp -= 23
 
-
 def pick_lobby(all_players):
     """
         Input
@@ -186,17 +185,32 @@ def pick_lobby(all_players):
     for i in all_players:
         if i.is_online == True:
             online_players.append(i)
-
-    online_players.sort(key=lambda x: x.mmr)
+    
+    online_players.sort(key = lambda x: x.mmr)
     online_players = np.array(online_players)
-    ONLINE_COUNT = online_players.size
-    for i in range(int(ONLINE_COUNT / 20)):
+    ONLINE_COUNT = online_players.size()
+    for i in ONLINE_COUNT / 20:
         match_1_result = match(online_players[:10])
+        match_1_average_mmr = np.average(online_players[:10].mmr)
+        
+        #NOTE: THIS SYNTAX OF NP.AVERAGE MAY NOT WORK, TESTING NEEDED
+        
+        handleMatchResults(online_players[:10], match_1_result, \
+                           match_1_average_mmr)
+        
         match_2_result = match(online_players[-10:])
-        # do something about the results (MMR and rank function)
+        match_2_average_mmr = np.average(online_players[-10].mmr)
+        handleMatchResults(online_players[-10:], match_2_result, \
+                           match_2_average_mmr)
+        
         online_players = online_players[10:-10]
-
-    # at this point the array should have less than 20 elements
-    if (online_players.size >= 10):
+        
+    #at this point the array should have less than 20 elements
+    if(online_players.size() >= 10):
         match_result = match(online_players[:10])
-        # do something about the results (MMR and rank function)
+        match_average_mmr = np.average(online_players[:10].mmr)
+        handleMatchResults(online_players[-10:], match_2_result, \
+                           match_2_average_mmr)
+        
+        online_players = online_players[10:-10]
+    return online_players
