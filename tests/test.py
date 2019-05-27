@@ -1,20 +1,28 @@
 import unittest
 from Model import Model
+from Player import Player
 from tests import test_model
+from tests import test_player
+from tests import test_server
 
 
 class SetUpTest(unittest.TestCase):
     def setUp(self):
         self.string_test = "Hello There"
-        self.modelobj = Model()
 
 
 class ModelTests(SetUpTest, test_model.Tests): pass
 
 
+class PlayerTests(SetUpTest, test_player.Tests): pass
+
+
+class ServerTests(SetUpTest, test_server.Tests): pass
+
+
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(ModelTests))
-    # suite.addTest(unittest.makeSuite(PlayerTests))
+    suite.addTest(unittest.makeSuite(PlayerTests))
+    suite.addTest(unittest.makeSuite(ServerTests))
     unittest.TextTestRunner().run(suite)
-
