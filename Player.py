@@ -37,7 +37,7 @@ class Player(object):
         self.rankDownMatch = False
         self.has_played = False
         self.amountOfGamesPlayed = 0
-        self.lp = 0
+        self.lp = 1000
         #  TODO(Antong): Make this variable a random number based on what you believe the distribution should be
         self.is_online = True
         #  TODO(Tyler): Make this based off the buckets that will be defined in the Model Object
@@ -53,111 +53,99 @@ class Player(object):
     def rankUp(self):
         """Allows the player to rank up and assigns rank based on mmr
         
-            Variables:
-                Bucket: Represents bucket of what rank they fall in
-                    based on their mmr
+            Variables: 
+                bucket = to the bucket/rank the player should fall into
         """
-
-        # -Variable Declaration
-
-        bucket = 100
 
         # -If currently unranked
 
         if (self.rank == 9):
 
-            # -Finds correct bucket by looping
-
-            while (self.mmr / bucket > 1):
-                bucket += 100
-
-            # -Makes bucket a smaller number and easier to handle
-
-            bucket = bucket / 100
+            bucket = round(self.mmr / 100)
 
             # -Finds the rank based off bucket and places it.
 
             if (bucket == 1):
                 self.rank = 0
-                self.divison = 4
+                self.rankDivision = 4
             elif (bucket == 2):
                 self.rank = 0
-                self.division = 3
+                self.rankDivision = 3
             elif (bucket == 3):
                 self.rank = 0
-                self.division = 2
+                self.rankDivision = 2
             elif (bucket == 4):
                 self.rank = 0
-                self.division = 1
+                self.rankDivision = 1
             elif (bucket == 5):
                 self.rank = 1
-                self.division = 4
+                self.rankDivision = 4
             elif (bucket == 6):
                 self.rank = 1
-                self.division = 3
+                self.rankDivision = 3
             elif (bucket == 7):
                 self.rank = 1
-                self.division = 2
+                self.rankDivision = 2
             elif (bucket == 8):
                 self.rank = 1
-                self.division = 1
+                self.rankDivision = 1
             elif (bucket == 9):
                 self.rank = 2
-                self.division = 4
+                self.rankDivision = 4
             elif (bucket == 10):
                 self.rank = 2
-                self.division = 3
+                self.rankDivision = 3
             elif (bucket == 11):
                 self.rank = 2
-                self.division = 2
+                self.rankDivision = 2
             elif (bucket == 12):
                 self.rank = 2
-                self.division = 1
+                self.rankDivision = 1
             elif (bucket == 13):
                 self.rank = 3
-                self.division = 4
+                self.rankDivision = 4
             elif (bucket == 14):
                 self.rank = 3
-                self.division = 3
+                self.rankDivision = 3
             elif (bucket == 15):
                 self.rank = 3
-                self.division = 2
+                self.rankDivision = 2
             elif (bucket == 16):
                 self.rank = 3
-                self.division = 1
+                self.rankDivision = 1
             elif (bucket == 17):
                 self.rank = 4
-                self.division = 4
+                self.rankDivision = 4
             elif (bucket == 18):
                 self.rank = 4
-                self.division = 3
+                self.rankDivision = 3
             elif (bucket == 19):
                 self.rank = 4
-                self.division = 2
+                self.rankDivision = 2
             elif (bucket == 20):
                 self.rank = 4
-                self.division = 1
+                self.rankDivision = 1
             elif (bucket == 21):
                 self.rank = 5
-                self.division = 4
+                self.rankDivision = 4
             elif (bucket == 22):
                 self.rank = 5
-                self.division = 3
+                self.rankDivision = 3
             elif (bucket == 23):
                 self.rank = 5
-                self.division = 2
+                self.rankDivision = 2
             elif (bucket == 24):
                 self.rank = 5
-                self.division = 1
+                self.rankDivision = 1
             elif (bucket == 25):
                 self.rank = 6
-                self.division = 1
+                self.rankDivision = 1
             elif (bucket == 26):
                 self.rank = 7
-                self.division = 1
-            elif (bucket == 27):
+                self.rankDivision = 1
+            else:
                 self.rank = 8
-                self.division = 1
+                self.rankDivision = 1
 
 
         # -If currently ranked
@@ -167,17 +155,17 @@ class Player(object):
             # -If below master
 
             if (self.rank < 6):
-                if (self.division == 1):
+                if (self.rankDivision == 1):
                     self.rank += 1
-                    self.division = 4
+                    self.rankDivision = 4
                 else:
-                    self.division -= 1
+                    self.rankDivision -= 1
 
             # - If below challenger
 
             elif (self.rank < 8):
                 self.rank += 1
-                self.division = 1
+                self.rankDivision = 1
 
             # - If Challenger
 
@@ -194,16 +182,16 @@ class Player(object):
         """
 
         if (self.rank < 6):
-            if (self.division == 4 and self.rank == 0):
+            if (self.rankDivision == 4 and self.rank == 0):
                 self.rank = 0
-            elif (self.division == 4):
+            elif (self.rankDivision == 4):
                 self.rank -= 1
-                self.division = 1
+                self.rankDivision = 1
             else:
-                self.division += 1
+                self.rankDivision += 1
         else:
             self.rank -= 1
-            self.division = 1
+            self.rankDivision = 1
 
         self.rankDownMatch = False
         self.lp = 50
@@ -219,9 +207,9 @@ class Player(object):
         for i in range(26):
             self.rankUp()
         rank_up = self.rank
-        division_up = self.division
+        division_up = self.rankDivision
         for i in range(26):
             self.rankDown()
         rank_down = self.rank
-        division_down = self.division
+        division_down = self.rankDivision
         return rank_up, division_up, rank_down, division_down
