@@ -221,3 +221,20 @@ def pick_lobby(all_players):
         
         online_players = online_players[10:-10]
     return online_players
+
+def _test_match_winner_handling():
+    player_list = []
+    for i in range(10):
+        player_list.append(Player())
+    player_list[0].mmr = 1000
+    player_list[1].mmr = 2000
+    player_list[2].mmr = 1000
+    player_list[3].mmr = 2000
+    player_list[4].mmr = 1000
+    player_list[5].mmr = 2000
+    player_list[6].mmr = 1000
+    player_list[7].mmr = 2000
+    player_list[8].mmr = 1000
+    player_list[9].mmr = 2000
+    handleMatchResults(player_list, 1, 1500)
+    return player_list
