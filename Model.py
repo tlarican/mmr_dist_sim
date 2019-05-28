@@ -27,7 +27,3 @@ class Model(object):
     def _test_player_list_size(self):
         return len(self.player_list)
 
-
-# - Made this to test the graphing method
-
-bob = Model()
