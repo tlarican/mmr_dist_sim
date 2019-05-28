@@ -193,22 +193,27 @@ def pick_lobby(all_players):
     online_players = np.array(online_players)
     ONLINE_COUNT = online_players.size
     for i in range(round(ONLINE_COUNT / 20)):
-        match_1_result = match(online_players[:10])
+        teamOne = online_players[:10]
+        np.random.shuffle(teamOne)
+        match_1_result = match(teamOne)
         match_1_average_mmr = 0
         match_2_average_mmr = 0
         for i in range(10):
-            match_1_average_mmr = match_1_average_mmr + np.average(online_players[i].mmr)
+            match_1_average_mmr = match_1_average_mmr + teamOne[i].mmr
         
         #NOTE: THIS SYNTAX OF NP.AVERAGE MAY NOT WORK, TESTING NEEDED
         
-        handleMatchResults(online_players[:10], match_1_result, \
+        handleMatchResults(teamOne, match_1_result, \
                            match_1_average_mmr)
         
-        match_2_result = match(online_players[-10:])
+        teamTwo = online_players[-10:]
+        np.random.shuffle(teamTwo)
+        match_2_result = match(teamTwo)
         
         for i in range(10):
-            match_2_average_mmr = match_2_average_mmr + np.average(online_players[-i].mmr)
-        handleMatchResults(online_players[-10:], match_2_result, \
+            match_2_average_mmr = match_2_average_mmr +teamTwo[i].mmr
+            
+        handleMatchResults(teamTwo, match_2_result, \
                            match_2_average_mmr)
         
         online_players = online_players[10:-10]
@@ -219,8 +224,8 @@ def pick_lobby(all_players):
         match_result = match(online_players[:10])
         for i in range(10):
             match_average_mmr = match_average_mmr + np.average(online_players[10].mmr)
-        handleMatchResults(online_players[:10], match_2_result, \
-                           match_2_average_mmr)
+        handleMatchResults(online_players[:10], match_result, \
+                           match_average_mmr)
         
         online_players = online_players[10:-10]
     return online_players
