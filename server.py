@@ -42,24 +42,19 @@ def match(players):
     # - Variable Declarations
     team_1_odds = 0
     team_2_odds = 0
+    
     for iplayer in players[:TEAM_SIZE]:
         team_1_odds = team_1_odds + iplayer.skill
     for iplayer in players[TEAM_SIZE:]:
         team_2_odds = team_2_odds + iplayer.skill
     team_1_odds = team_1_odds / TEAM_SIZE
     team_2_odds = team_2_odds / TEAM_SIZE
+    
     # team_1_odds = np.average(players[:TEAM_SIZE].skill)
     # team_2_odds = np.average(players[TEAM_SIZE:].skill)
-    average_mmr = 0
-    for iplayer in players:
-        average_mmr = average_mmr + iplayer.mmr
-    average_mmr = average_mmr / (TEAM_SIZE * 2)
-    # average_mmr = np.average(players[:].mmr)
-    winner = 1 + (team_2_odds > team_1_odds)
-
-    # - Calls handleMatchResults to deal with players
-
-    #handleMatchResults(players, winner, average_mmr)
+ 
+            
+    winner = 1 + (team_1_odds > team_2_odds)
 
     # - Updates non rank/mmr/lp values
 
@@ -97,6 +92,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankUpMatch = True
                 else:
                     players[i].lp += 23
+                    players[i].rankDownMatch = False
             else:
                 players[i].mmr += 15
                 if (players[i].rankUpMatch == True):
@@ -106,6 +102,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankUpMatch = True
                 else:
                     players[i].lp += 18
+                    players[i].rankDownMatch = False
         for i in range(10):
             if (i < 5):
                 continue
@@ -118,6 +115,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankDownMatch = True
                 else:
                     players[i].lp -= 18
+                    players[i].rankUpMatch = False
             else:
                 players[i].mmr -= 25
                 if (players[i].rankDownMatch == True):
@@ -127,6 +125,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankDownMatch = True
                 else:
                     players[i].lp -= 23
+                    players[i].rankUpMatch = False
 
     # -If Team 2 won
 
@@ -146,6 +145,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankUpMatch = True
                 else:
                     players[i].lp += 23
+                    players[i].rankDownMatch = False
             else:
                 players[i].mmr += 15
                 if (players[i].rankUpMatch == True):
@@ -155,6 +155,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankUpMatch = True
                 else:
                     players[i].lp += 18
+                    players[i].rankDownMatch = False
         for i in range(TEAM_SIZE):
             if (players[i].mmr < average_mmr):
                 players[i].mmr -= 15
@@ -165,6 +166,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankDownMatch = True
                 else:
                     players[i].lp -= 18
+                    players[i].rankUpMatch = False
             else:
                 players[i].mmr -= 25
                 if (players[i].rankDownMatch == True):
@@ -174,6 +176,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankDownMatch = True
                 else:
                     players[i].lp -= 23
+                    players[i].rankUpMatch = False
 
 def pick_lobby(all_players):
     """
@@ -238,3 +241,4 @@ def _test_match_winner_handling():
     player_list[9].mmr = 2000
     handleMatchResults(player_list, 1, 1500)
     return player_list
+
