@@ -17,12 +17,12 @@ class Tests(object):
     Testing object for when test.py is ran through main
     """
 
-    # def test_one_round(self):
-    #     model = Model()
-    #     server.pick_lobby(model.player_list)
-    #     if SHOW_GRAPHS:
-    #         Graphing.showMMR(model.player_list)
-    #         Graphing.showRanksUnsorted(model.player_list)
+    def test_one_round(self):
+        model = Model()
+        server.pick_lobby(model.player_list)
+        if SHOW_GRAPHS:
+            Graphing.showMMR(model.player_list)
+            Graphing.showRanksUnsorted(model.player_list)
 
     def test_multiple_rounds(self):
         model = Model()

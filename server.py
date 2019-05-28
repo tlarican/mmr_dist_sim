@@ -42,18 +42,18 @@ def match(players):
     # - Variable Declarations
     team_1_odds = 0
     team_2_odds = 0
-
+    
     for iplayer in players[:TEAM_SIZE]:
         team_1_odds = team_1_odds + iplayer.skill
     for iplayer in players[TEAM_SIZE:]:
         team_2_odds = team_2_odds + iplayer.skill
     team_1_odds = team_1_odds / TEAM_SIZE
     team_2_odds = team_2_odds / TEAM_SIZE
-
+    
     # team_1_odds = np.average(players[:TEAM_SIZE].skill)
     # team_2_odds = np.average(players[TEAM_SIZE:].skill)
-
-
+ 
+            
     winner = 1 + (team_1_odds > team_2_odds)
 
     # - Updates non rank/mmr/lp values
@@ -188,40 +188,45 @@ def pick_lobby(all_players):
     for i in all_players:
         if i.is_online == True:
             online_players.append(i)
-
+    
     online_players.sort(key = lambda x: x.mmr)
     online_players = np.array(online_players)
     ONLINE_COUNT = online_players.size
     for i in range(round(ONLINE_COUNT / 20)):
-        match_1_result = match(online_players[:10])
+        teamOne = online_players[:10]
+        np.random.shuffle(teamOne)
+        match_1_result = match(teamOne)
         match_1_average_mmr = 0
         match_2_average_mmr = 0
         for i in range(10):
-            match_1_average_mmr = match_1_average_mmr + np.average(online_players[i].mmr)
-
+            match_1_average_mmr = match_1_average_mmr + teamOne[i].mmr
+        
         #NOTE: THIS SYNTAX OF NP.AVERAGE MAY NOT WORK, TESTING NEEDED
-
-        handleMatchResults(online_players[:10], match_1_result, \
+        
+        handleMatchResults(teamOne, match_1_result, \
                            match_1_average_mmr)
-
-        match_2_result = match(online_players[-10:])
-
+        
+        teamTwo = online_players[-10:]
+        np.random.shuffle(teamTwo)
+        match_2_result = match(teamTwo)
+        
         for i in range(10):
-            match_2_average_mmr = match_2_average_mmr + np.average(online_players[-i].mmr)
-        handleMatchResults(online_players[-10:], match_2_result, \
+            match_2_average_mmr = match_2_average_mmr +teamTwo[i].mmr
+            
+        handleMatchResults(teamTwo, match_2_result, \
                            match_2_average_mmr)
-
+        
         online_players = online_players[10:-10]
-
+        
     #at this point the array should have less than 20 elements
     if(online_players.size >= 10):
         match_average_mmr = 0
         match_result = match(online_players[:10])
         for i in range(10):
             match_average_mmr = match_average_mmr + np.average(online_players[10].mmr)
-        handleMatchResults(online_players[:10], match_2_result, \
-                           match_2_average_mmr)
-
+        handleMatchResults(online_players[:10], match_result, \
+                           match_average_mmr)
+        
         online_players = online_players[10:-10]
     return online_players
 
@@ -242,4 +247,3 @@ def _test_match_winner_handling():
     for i in range(10):
         handleMatchResults(player_list, 1, 1500)
     return player_list
-
