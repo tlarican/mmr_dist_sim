@@ -244,6 +244,6 @@ def _test_match_winner_handling():
     player_list[7].mmr = 2000
     player_list[8].mmr = 1000
     player_list[9].mmr = 2000
-    handleMatchResults(player_list, 1, 1500)
+    for i in range(10):
+        handleMatchResults(player_list, 1, 1500)
     return player_list
-
