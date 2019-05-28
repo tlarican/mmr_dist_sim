@@ -44,8 +44,8 @@ def showRanksUnsorted(players):
     columns = 10
 
     while ((rows * columns) < np.size(players)):
-        rows = rows + 2
-        columns = columns + 2
+        rows = rows + 10
+        columns = columns + 10
 
     # - Variable Declarations
 
@@ -239,7 +239,6 @@ def showMMR(players):
     size = np.size(players)
     mmr = np.zeros(size)
     skill = np.zeros(size)
-
     # - Sets the data in the arrays for mmr and skill
 
     for i in range(size):
@@ -263,10 +262,21 @@ def showMMR(players):
     plt.plot(np.unique(skill), np.poly1d(np.polyfit(skill, mmr, 1))(np.unique(skill)), "r-")
 
     plt.title("Skill vs. MMR")
-    plt.axis([-2, 10, 0, 2000])
+    plt.axis([-2, 10, 0, 4000])
     plt.xlabel("Skill")
     plt.ylabel("MMR")
 
+
+    #-Plots histogram for skill
+    
+    plt.figure(3)
+    plt.title("Skill distibution")
+    plt.hist(skill)
+    plt.xlabel("Skill")
+    plt.ylabel("Frequency")
+    
     # -Shows the plots
 
     plt.show()
+
+    
