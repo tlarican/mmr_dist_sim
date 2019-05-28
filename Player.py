@@ -208,6 +208,9 @@ class Player(object):
         :return: rank after rankUp, divison after rankUp,
                  rank after rankDown, divison after rankDown
         """
+        self.amountOfGamesPlayed = 20
+        self.rank = 0
+        self.rankDivision = 4
         for i in range(26):
             self.rankUp()
         rank_up = self.rank

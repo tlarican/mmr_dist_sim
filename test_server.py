@@ -10,7 +10,7 @@ import server
 from Model import Model
 import Graphing
 
-SHOW_GRAPHS = True
+SHOW_GRAPHS = False
 
 class Tests(object):
     """
