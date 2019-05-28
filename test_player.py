@@ -20,7 +20,7 @@ class Tests(object):
         self.assertTrue(player.rankDownMatch is False)
         self.assertTrue(player.has_played is False)
         self.assertEqual(player.amountOfGamesPlayed, 0)
-        self.assertEqual(player.lp, 1000)
+        self.assertEqual(player.lp, 0)
         self.assertTrue(player.is_online is True)
         self.assertEqual(player.rank, 9)
         self.assertEqual(player.rankDivision, 1)
