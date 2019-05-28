@@ -33,6 +33,5 @@ class Tests(object):
         Makes sure every line of code in rankUp and rankDown is touched
         """
         player = Player()
-        player.amountOfGamesPlayed = 10
         ranks = player._test_rank_methods()
         self.assertEqual((8, 1, 0, 4), ranks, msg='Player Ranking Failed')
