@@ -24,6 +24,7 @@ class Tests(object):
         self.assertTrue(player.is_online is True)
         self.assertEqual(player.rank, 9)
         self.assertEqual(player.rankDivision, 1)
+        self.assertEqual(player.lp, 1000)
 
     def test_player_ranking(self):
         """

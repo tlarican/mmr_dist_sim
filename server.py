@@ -42,18 +42,18 @@ def match(players):
     # - Variable Declarations
     team_1_odds = 0
     team_2_odds = 0
-    
+
     for iplayer in players[:TEAM_SIZE]:
         team_1_odds = team_1_odds + iplayer.skill
     for iplayer in players[TEAM_SIZE:]:
         team_2_odds = team_2_odds + iplayer.skill
     team_1_odds = team_1_odds / TEAM_SIZE
     team_2_odds = team_2_odds / TEAM_SIZE
-    
+
     # team_1_odds = np.average(players[:TEAM_SIZE].skill)
     # team_2_odds = np.average(players[TEAM_SIZE:].skill)
- 
-            
+
+
     winner = 1 + (team_1_odds > team_2_odds)
 
     # - Updates non rank/mmr/lp values
@@ -188,7 +188,7 @@ def pick_lobby(all_players):
     for i in all_players:
         if i.is_online == True:
             online_players.append(i)
-    
+
     online_players.sort(key = lambda x: x.mmr)
     online_players = np.array(online_players)
     ONLINE_COUNT = online_players.size
@@ -198,21 +198,21 @@ def pick_lobby(all_players):
         match_2_average_mmr = 0
         for i in range(10):
             match_1_average_mmr = match_1_average_mmr + np.average(online_players[i].mmr)
-        
+
         #NOTE: THIS SYNTAX OF NP.AVERAGE MAY NOT WORK, TESTING NEEDED
-        
+
         handleMatchResults(online_players[:10], match_1_result, \
                            match_1_average_mmr)
-        
+
         match_2_result = match(online_players[-10:])
-        
+
         for i in range(10):
             match_2_average_mmr = match_2_average_mmr + np.average(online_players[-i].mmr)
         handleMatchResults(online_players[-10:], match_2_result, \
                            match_2_average_mmr)
-        
+
         online_players = online_players[10:-10]
-        
+
     #at this point the array should have less than 20 elements
     if(online_players.size >= 10):
         match_average_mmr = 0
@@ -221,7 +221,7 @@ def pick_lobby(all_players):
             match_average_mmr = match_average_mmr + np.average(online_players[10].mmr)
         handleMatchResults(online_players[:10], match_2_result, \
                            match_2_average_mmr)
-        
+
         online_players = online_players[10:-10]
     return online_players
 
@@ -239,6 +239,7 @@ def _test_match_winner_handling():
     player_list[7].mmr = 2000
     player_list[8].mmr = 1000
     player_list[9].mmr = 2000
-    handleMatchResults(player_list, 1, 1500)
+    for i in range(10):
+        handleMatchResults(player_list, 1, 1500)
     return player_list
 
