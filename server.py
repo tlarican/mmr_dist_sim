@@ -201,8 +201,7 @@ def pick_lobby(all_players):
         for i in range(10):
             match_1_average_mmr = match_1_average_mmr + teamOne[i].mmr
         
-        #NOTE: THIS SYNTAX OF NP.AVERAGE MAY NOT WORK, TESTING NEEDED
-        
+        match_1_average_mmr = match_1_average_mmr / 10
         handleMatchResults(teamOne, match_1_result, \
                            match_1_average_mmr)
         
@@ -212,7 +211,7 @@ def pick_lobby(all_players):
         
         for i in range(10):
             match_2_average_mmr = match_2_average_mmr +teamTwo[i].mmr
-            
+        match_2_average_mmr = match_2_average_mmr / 10 
         handleMatchResults(teamTwo, match_2_result, \
                            match_2_average_mmr)
         
@@ -221,10 +220,13 @@ def pick_lobby(all_players):
     #at this point the array should have less than 20 elements
     if(online_players.size >= 10):
         match_average_mmr = 0
-        match_result = match(online_players[:10])
+        teamThree = online_players[:10]
+        np.random.shuffle(teamThree)
+        match_result = match(teamThree)
         for i in range(10):
-            match_average_mmr = match_average_mmr + np.average(online_players[10].mmr)
-        handleMatchResults(online_players[:10], match_result, \
+            match_average_mmr = match_average_mmr +teamThree[i].mmr
+        match_average_mmr = match_average_mmr / 10
+        handleMatchResults(teamThree, match_result, \
                            match_average_mmr)
         
         online_players = online_players[10:-10]

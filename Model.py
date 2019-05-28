@@ -20,8 +20,6 @@ class Model(object):
         self.player_list = []
         for i in range(number_players):
             self.player_list.append(Player())
-        # Graphing.showRanksUnsorted(self.player_list)
-        # Graphing.showMMR(self.player_list)
         self.rank_mins = []
 
     def _test_player_list_size(self):
