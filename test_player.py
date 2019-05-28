@@ -33,4 +33,4 @@ class Tests(object):
         """
         player = Player()
         ranks = player._test_rank_methods()
-        self.assertEqual(ranks, (8, 1, 1, 4), msg='Player Ranking Failed')
+        self.assertEqual(ranks, (8, 1, 0, 4), msg='Player Ranking Failed')

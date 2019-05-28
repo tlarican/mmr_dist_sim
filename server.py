@@ -59,7 +59,7 @@ def match(players):
 
     # - Calls handleMatchResults to deal with players
 
-    handleMatchResults(players, winner, average_mmr)
+    #handleMatchResults(players, winner, average_mmr)
 
     # - Updates non rank/mmr/lp values
 
@@ -162,7 +162,7 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].rankDown()
                 elif ((players[i].lp - 18) < 0):
                     players[i].lp = 0
-                    players[i].rankDown = True
+                    players[i].rankDownMatch = True
                 else:
                     players[i].lp -= 18
             else:
@@ -188,10 +188,13 @@ def pick_lobby(all_players):
     
     online_players.sort(key = lambda x: x.mmr)
     online_players = np.array(online_players)
-    ONLINE_COUNT = online_players.size()
-    for i in ONLINE_COUNT / 20:
+    ONLINE_COUNT = online_players.size
+    for i in range(round(ONLINE_COUNT / 20)):
         match_1_result = match(online_players[:10])
-        match_1_average_mmr = np.average(online_players[:10].mmr)
+        match_1_average_mmr = 0
+        match_2_average_mmr = 0
+        for i in range(10):
+            match_1_average_mmr = match_1_average_mmr + np.average(online_players[i].mmr)
         
         #NOTE: THIS SYNTAX OF NP.AVERAGE MAY NOT WORK, TESTING NEEDED
         
@@ -199,17 +202,21 @@ def pick_lobby(all_players):
                            match_1_average_mmr)
         
         match_2_result = match(online_players[-10:])
-        match_2_average_mmr = np.average(online_players[-10].mmr)
+        
+        for i in range(10):
+            match_2_average_mmr = match_2_average_mmr + np.average(online_players[-i].mmr)
         handleMatchResults(online_players[-10:], match_2_result, \
                            match_2_average_mmr)
         
         online_players = online_players[10:-10]
         
     #at this point the array should have less than 20 elements
-    if(online_players.size() >= 10):
+    if(online_players.size >= 10):
+        match_average_mmr = 0
         match_result = match(online_players[:10])
-        match_average_mmr = np.average(online_players[:10].mmr)
-        handleMatchResults(online_players[-10:], match_2_result, \
+        for i in range(10):
+            match_average_mmr = match_average_mmr + np.average(online_players[10].mmr)
+        handleMatchResults(online_players[:10], match_2_result, \
                            match_2_average_mmr)
         
         online_players = online_players[10:-10]

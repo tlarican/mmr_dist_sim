@@ -187,7 +187,7 @@ class Player(object):
         self.rankUpMatch = False
         self.lp = 0
 
-    # -------------------- Function: rankUp ------------------------------------
+    # -------------------- Function: rankDown ------------------------------------
     #  TODO: Somethings causing divisions to not rank down correctly, run test suite to see
     def rankDown(self):
         """Moves the player down in ranks
@@ -200,7 +200,7 @@ class Player(object):
                 self.rank -= 1
                 self.division = 1
             else:
-                self.division -= 1
+                self.division += 1
         else:
             self.rank -= 1
             self.division = 1

@@ -1,9 +1,9 @@
 import unittest
 from Model import Model
 from Player import Player
-from tests import test_model
-from tests import test_player
-from tests import test_server
+import test_model
+import test_player
+import test_server
 
 
 class SetUpTest(unittest.TestCase):
