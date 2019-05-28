@@ -37,7 +37,7 @@ class Player(object):
         self.rankDownMatch = False
         self.has_played = False
         self.amountOfGamesPlayed = 0
-        self.lp = 1000
+        self.lp = 0
         #  TODO(Antong): Make this variable a random number based on what you believe the distribution should be
         self.is_online = True
         #  TODO(Tyler): Make this based off the buckets that will be defined in the Model Object
@@ -58,7 +58,9 @@ class Player(object):
         """
 
         # -If currently unranked
-
+        if(self.amountOfGamesPlayed < 10):
+            return
+            
         if (self.rank == 9):
 
             bucket = round(self.mmr / 100)
@@ -180,7 +182,9 @@ class Player(object):
     def rankDown(self):
         """Moves the player down in ranks
         """
-
+        if(self.amountOfGamesPlayed < 10):
+            return
+            
         if (self.rank < 6):
             if (self.rankDivision == 4 and self.rank == 0):
                 self.rank = 0
