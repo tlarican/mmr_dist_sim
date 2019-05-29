@@ -76,7 +76,7 @@ def handleMatchResults(players, winner, average_mmr):
             average_mmr = The average mmr of the match
             mmrChange = The amount of mmr lost/gained each match
     """
-    mmrChange = 15
+    mmrChange = round(average_mmr/100)
     # - If team one won (0-4 in array)
     
     if (winner == 2):
