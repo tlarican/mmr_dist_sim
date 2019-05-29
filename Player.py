@@ -39,6 +39,7 @@ class Player(object):
             self.teamFighting = np.random.randint(1, 11)
             self.waveManagement = np.random.randint(1, 11)
         """
+        self.mmr_start = mmr_default
         self.skill = np.random.normal(5, 2)
         self.mmr = mmr_default
         self.rankUpMatch = False

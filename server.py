@@ -98,7 +98,7 @@ def handleMatchResults(players, winner, average_mmr):
 
 def handleMatchResultsHelper(player, average_mmr, gamePosition) :
     # -Determines if the players are above or below average mmr
-    mmr_change = round(average_mmr/100) * gamePosition
+    mmr_change = round(player.mmr_start/100) * gamePosition
     change_range = round(mmr_change / 4)
     
     if (player.mmr < average_mmr):
