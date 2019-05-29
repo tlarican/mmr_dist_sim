@@ -102,7 +102,7 @@ def handleMatchResultsHelper(player, average_mmr, gamePosition) :
     change_range = round(mmr_change / 4)
     
     if (player.mmr < average_mmr):
-        if((player.mmr + (mmr_change + change_range)) < 2800):
+        if(0 < (player.mmr + (mmr_change + change_range)) < 2800):
             player.mmr += (mmr_change + change_range)
         if (player.rankUpMatch == True):
             player.rankUp()
@@ -113,7 +113,7 @@ def handleMatchResultsHelper(player, average_mmr, gamePosition) :
             player.lp += (mmr_change + change_range)/1.25
             player.rankDownMatch = False
     else:
-        if((player.mmr + mmr_change) < 2800):
+        if(0 < (player.mmr + mmr_change) < 2800):
             player.mmr += mmr_change
         if (player.rankUpMatch == True):
             player.rankUp()
