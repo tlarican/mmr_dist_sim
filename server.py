@@ -109,8 +109,8 @@ def handleMatchResults(players, winner, average_mmr):
         
         #-Runs through the losing team(5-9)
         
-        for i in range(10):
-            if (i < 5):
+        for i in range(TEAM_SIZE*2):
+            if (i < TEAM_SIZE):
                 continue
             if (players[i].mmr < average_mmr):
                 if((players[i].mmr - 15) > 0):
@@ -142,8 +142,8 @@ def handleMatchResults(players, winner, average_mmr):
         
         #-Runs through winning team (5-9)
         
-        for i in range(10):
-            if (i < 5):
+        for i in range(TEAM_SIZE*2):
+            if (i < TEAM_SIZE):
                 continue
 
             # - Determines if above or below average mmr
