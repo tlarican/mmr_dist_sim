@@ -176,7 +176,8 @@ class Player(object):
             # - If Challenger
 
             else:
-                self.rank = 8
+                self.rankUpMatch = False
+                return
         
         
         #- resets lp and rankUpMatch

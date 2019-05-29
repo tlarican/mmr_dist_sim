@@ -331,7 +331,7 @@ def showMMR(players):
     plt.ylabel("Frequency")
     
     plt.figure(4)
-    plt.hist(ranks)
+    plt.hist(ranks, 9)
     plt.title("Rank distrubution")
     plt.xlabel("rank")
     plt.ylabel("frequency")
