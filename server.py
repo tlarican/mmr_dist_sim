@@ -76,6 +76,131 @@ def handleMatchResults(players, winner, average_mmr):
             average_mmr = The average mmr of the match
             mmrChange = The amount of mmr lost/gained each match
     """
+    """
+    mmrChange = 15
+    # - If team one won (0-4 in array)
+    
+    if (winner == 2):
+        for i in range(TEAM_SIZE):
+
+            # -Determines if the players are above or below average mmr
+
+            if (players[i].mmr < average_mmr):
+                if((players[i].mmr + mmrChange+10) < 2800):
+                    players[i].mmr += mmrChange+10
+                if (players[i].rankUpMatch == True):
+                    players[i].rankUp()
+                elif ((players[i].lp + mmrChange+9) > 100):
+                    players[i].lp = 100
+                    players[i].rankUpMatch = True
+                else:
+                    players[i].lp += mmrChange+9
+                    players[i].rankDownMatch = False
+            else:
+                if((players[i].mmr + mmrChange) < 2800):
+                    players[i].mmr += mmrChange
+                if (players[i].rankUpMatch == True):
+                    players[i].rankUp()
+                elif ((players[i].lp + mmrChange+5) > 100):
+                    players[i].lp = 100
+                    players[i].rankUpMatch = True
+                else:
+                    players[i].lp += mmrChange+5
+                    players[i].rankDownMatch = False
+                    
+        
+        #-Runs through the losing team(5-9)
+        
+        for i in range(TEAM_SIZE*2):
+            if (i < TEAM_SIZE):
+                continue
+            if (players[i].mmr < average_mmr):
+                if((players[i].mmr - mmrChange) > 0):
+                    players[i].mmr -= mmrChange
+                if (players[i].rankDownMatch == True):
+                    players[i].rankDown()
+                elif ((players[i].lp - mmrChange+1) < 0):
+                    players[i].lp = 0
+                    players[i].rankDownMatch = True
+                else:
+                    players[i].lp -= mmrChange+1
+                    players[i].rankUpMatch = False
+            else:
+                if((players[i].mmr - mmrChange+9) > 0):
+                    players[i].mmr -= mmrChange+9
+                if (players[i].rankDownMatch == True):
+                    players[i].rankDown()
+                elif ((players[i].lp - mmrChange+9) < 0):
+                    players[i].lp = 0
+                    players[i].rankDownMatch = True
+                else:
+                    players[i].lp -= mmrChange+9
+                    players[i].rankUpMatch = False
+
+
+    # -If Team 2 won
+
+    else:
+        
+        #-Runs through winning team (5-9)
+        
+        for i in range(TEAM_SIZE*2):
+            if (i < TEAM_SIZE):
+                continue
+
+            # - Determines if above or below average mmr
+
+            if (players[i].mmr < average_mmr):
+                if((players[i].mmr + mmrChange+10) < 2800):
+                    players[i].mmr += mmrChange+10
+                if (players[i].rankUpMatch == True):
+                    players[i].rankUp()
+                elif ((players[i].lp + mmrChange+9) > 100):
+                    players[i].lp = 100
+                    players[i].rankUpMatch = True
+                else:
+                    players[i].lp += mmrChange+9
+                    players[i].rankDownMatch = False
+            else:
+                if((players[i].mmr + mmrChange) < 2800):
+                    players[i].mmr += mmrChange
+                if (players[i].rankUpMatch == True):
+                    players[i].rankUp()
+                elif ((players[i].lp + mmrChange+5) > 100):
+                    players[i].lp = 100
+                    players[i].rankUpMatch = True
+                else:
+                    players[i].lp += mmrChange+5
+                    players[i].rankDownMatch = False
+                    
+        
+        #-Runs through losing team (0-4)
+        
+        for i in range(TEAM_SIZE):
+            if (players[i].mmr < average_mmr):
+                if((players[i].mmr - mmrChange) > 0):
+                    players[i].mmr -= mmrChange
+                if (players[i].rankDownMatch == True):
+                    players[i].rankDown()
+                elif ((players[i].lp - mmrChange+1) < 0):
+                    players[i].lp = 0
+                    players[i].rankDownMatch = True
+                else:
+                    players[i].lp -= mmrChange+1
+                    players[i].rankUpMatch = False
+            else:
+                if((players[i].mmr - mmrChange+9) > 0):
+                    players[i].mmr -= mmrChange+9
+                if (players[i].rankDownMatch == True):
+                    players[i].rankDown()
+                elif ((players[i].lp - mmrChange+9) < 0):
+                    players[i].lp = 0
+                    players[i].rankDownMatch = True
+                else:
+                    players[i].lp -= mmrChange+9
+                    players[i].rankUpMatch = False
+    """
+    
     # - If team one won (0-4 in array)
     if (winner == 2):
         # -Determines if the players are above or below average mmr      
