@@ -58,7 +58,7 @@ def showRanksUnsorted(players):
     graphRanks = np.zeros((rows, columns, 3), dtype='f')
 
     # - Runs through players inserting the rank and division
-    # - into the Ranks array
+    # - into the rankGraphArray
     
     for i in range(size):
         if(players[i].rank == 0 and players[i].rankDivision == 4):
@@ -322,7 +322,7 @@ def showMMR(players):
     plt.ylabel("MMR")
 
 
-    #-Plots histogram for skill
+    #-Plots histogram for skill and rank
     
     plt.figure(3)
     plt.title("Skill distribution")
@@ -335,6 +335,7 @@ def showMMR(players):
     plt.title("Rank distrubution")
     plt.xlabel("rank")
     plt.ylabel("frequency")
+    
     # -Shows the plots
 
     plt.show()

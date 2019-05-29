@@ -19,6 +19,14 @@ class Player(object):
         Variables:
             skill: Temp variable to quantify skill of player
             mmr: Current MMR of player
+            rankUpMatch: if the player is on a match that would rank them up
+            rankDownMatch: if the player is on a match that would rank them down
+            has_played: if the player has already played a game
+            amountOfGamesPlayed: the number of matches the player has played
+            lp: The amount of lp a player currently has
+            is_online: Checks if the player is online and playing
+            rank: The rank of the player
+            rankDivision: The division of the players rank
     """
 
     def __init__(self, mmr_default=1500):
@@ -53,6 +61,7 @@ class Player(object):
         """
 
         # -If currently unranked
+        
         if(self.amountOfGamesPlayed < 10):
             return
             
@@ -168,7 +177,10 @@ class Player(object):
 
             else:
                 self.rank = 8
-
+        
+        
+        #- resets lp and rankUpMatch
+        
         self.rankUpMatch = False
         self.lp = 0
 
@@ -177,9 +189,15 @@ class Player(object):
     def rankDown(self):
         """Moves the player down in ranks
         """
+        
+        #-If player is currently unranked
+        
         if(self.amountOfGamesPlayed < 10):
             return
-            
+        
+        
+        #-If the player is below master
+          
         if (self.rank < 6):
             if (self.rankDivision == 4 and self.rank == 0):
                 self.rank = 0
@@ -188,12 +206,17 @@ class Player(object):
                 self.rankDivision = 1
             else:
                 self.rankDivision += 1
+                
+        #-If the player is master or better
+        
         else:
             self.rank -= 1
             self.rankDivision = 1
-
+        
+        #- Resets the rankDownMatch and places the player with 30 lp
+        
         self.rankDownMatch = False
-        self.lp = 50
+        self.lp = 30
 
     # -------------------- Function: _test_rank_methods ------------------------
 
@@ -203,13 +226,24 @@ class Player(object):
         :return: rank after rankUp, divison after rankUp,
                  rank after rankDown, divison after rankDown
         """
+        
+        #-Starts at lowest rank
+        
         self.amountOfGamesPlayed = 20
         self.rank = 0
         self.rankDivision = 4
+        
+        
+        #-Ranks all the way up
+        
         for i in range(26):
             self.rankUp()
         rank_up = self.rank
         division_up = self.rankDivision
+        
+        
+        #-Ranks all the way down
+        
         for i in range(26):
             self.rankDown()
         rank_down = self.rank
