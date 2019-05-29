@@ -26,7 +26,7 @@ class Tests(object):
 
     def test_multiple_rounds(self):
         model = Model()
-        for i in range(100):
+        for i in range(1000):
             server.pick_lobby(model.player_list)
         if SHOW_GRAPHS:
             Graphing.showMMR(model.player_list)
