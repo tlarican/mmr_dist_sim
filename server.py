@@ -225,30 +225,36 @@ def handleMatchResultsHelper(player, average_mmr, gamePosition) :
     # -Determines if the players are above or below average mmr
     mmr_change = round(player.mmr_start/100) * gamePosition
     change_range = round(mmr_change / 4)
-    
+        
     if (player.mmr < average_mmr):
         if(0 < (player.mmr + (mmr_change + change_range)) < 2800):
             player.mmr += (mmr_change + change_range)
-        if (player.rankUpMatch == True):
-            player.rankUp()
-        elif ((player.lp + (mmr_change + change_range)/1.25) > 100):
-            player.lp = 100
-            player.rankUpMatch = True
-        else:
-            player.lp += (mmr_change + change_range)/1.25
-            player.rankDownMatch = False
+        checkMatch(player, gamePosition, (player.lp + (mmr_change + change_range)/1.25))
     else:
         if(0 < (player.mmr + mmr_change) < 2800):
             player.mmr += mmr_change
+        checkMatch(player, gamePosition, (player.lp + (mmr_change - change_range)/1.25))
+
+def checkMatch(player, gamePosition, rankCheck) :
+    if(gamePosition < 0) :
+        if (player.rankDownMatch == True):
+            player.rankDown()
+        elif (rankCheck < 0):
+            player.lp = 0
+            player.rankDownMatch = True
+        else:
+            player.lp = rankCheck
+            player.rankUpMatch = False
+    else :
         if (player.rankUpMatch == True):
-            player.rankUp()
-        elif ((player.lp + (mmr_change - change_range)/1.25) > 100):
+                player.rankUp()
+        elif (rankCheck > 100):
             player.lp = 100
             player.rankUpMatch = True
         else:
-            player.lp += (mmr_change - change_range)/1.25
+            player.lp = rankCheck
             player.rankDownMatch = False
-
+    
 def pick_lobby(all_players):
     """
         Input
