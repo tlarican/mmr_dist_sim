@@ -12,7 +12,7 @@ import numpy as np
 
 
 # -------------------- Class: Player ------------------------------------
-
+#  TODO: Change how ranking masters, grandmasters, challenger works
 class Player(object):
     """Create and manage Player variables and attributes
     
@@ -30,27 +30,29 @@ class Player(object):
     """
 
     def __init__(self, mmr_default=1500):
-        """
-            Random thoughts on variables we could use
-        
-            self.lastHiting = np.random.randint(1, 11)
-            self.tilt = np.random.randint(1, 11)
-            self.mechanics = np.random.randint(1, 11)
-            self.teamFighting = np.random.randint(1, 11)
-            self.waveManagement = np.random.randint(1, 11)
-        """
-        self.mmr_start = mmr_default
-        self.skill = np.random.normal(5, 2)
         self.mmr = mmr_default
+        self.rank = 9
+        self.rankDivision = 1
+        self.lp = 0
+        self.amountOfGamesPlayed = 0
         self.rankUpMatch = False
         self.rankDownMatch = False
         self.has_played = False
-        self.amountOfGamesPlayed = 0
-        self.lp = 0
+        self.mmr_start = mmr_default
+
+        #  Skill Variables
+        #  TODO: Add to as needed ie. When we expand how match winning works
+        #  TODO: So far, these variables apply to all stages of a game
+        self.communication = np.random.normal(5, 2)
+        self.tilt = np.random.normal(5, 3)
+        self.internet = 8 - np.random.normal(2, 1)
+        self.leadership = np.random.normal(5, 3)
+
+        #  TODO: Start removing dependencies on skill
+        self.skill = np.random.normal(5, 2)
+
+        #  TODO: Is this being used at all?
         self.is_online = True
-        self.rank = 9
-        self.rankDivision = 1
-        
 
     # -------------------- Function: rankUp ------------------------------------
 
@@ -62,13 +64,13 @@ class Player(object):
         """
 
         # -If currently unranked
-        
-        if(self.amountOfGamesPlayed < 10):
+
+        if (self.amountOfGamesPlayed < 10):
             return
-            
+
         if (self.rank == 9):
 
-            bucket = round(self.mmr / 100)
+            bucket = int(round(self.mmr / 100))
 
             # -Finds the rank based off bucket and places it.
 
@@ -179,10 +181,9 @@ class Player(object):
             else:
                 self.rankUpMatch = False
                 return
-        
-        
-        #- resets lp and rankUpMatch
-        
+
+        # - resets lp and rankUpMatch
+
         self.rankUpMatch = False
         self.lp = 0
 
@@ -191,15 +192,14 @@ class Player(object):
     def rankDown(self):
         """Moves the player down in ranks
         """
-        
-        #-If player is currently unranked
-        
-        if(self.amountOfGamesPlayed < 10):
+
+        # -If player is currently unranked
+
+        if (self.amountOfGamesPlayed < 10):
             return
-        
-        
-        #-If the player is below master
-          
+
+        # -If the player is below master
+
         if (self.rank < 6):
             if (self.rankDivision == 4 and self.rank == 0):
                 self.rank = 0
@@ -208,46 +208,57 @@ class Player(object):
                 self.rankDivision = 1
             else:
                 self.rankDivision += 1
-                
-        #-If the player is master or better
-        
+
+        # -If the player is master or better
+
         else:
             self.rank -= 1
             self.rankDivision = 1
-        
-        #- Resets the rankDownMatch and places the player with 30 lp
-        
+
+        # - Resets the rankDownMatch and places the player with 30 lp
+
         self.rankDownMatch = False
         self.lp = 30
 
     # -------------------- Function: _test_rank_methods ------------------------
 
-    def _test_rank_methods(self):
+    def _test_rank_min_max(self):
         """
         Testing ranking methods in test suite
-        :return: rank after rankUp, divison after rankUp,
-                 rank after rankDown, divison after rankDown
+        :return: rank after rankUp, division after rankUp,
+                 rank after rankDown, division after rankDown
         """
-        
-        #-Starts at lowest rank
-        
+
+        # -Starts at lowest rank
+
         self.amountOfGamesPlayed = 20
         self.rank = 0
         self.rankDivision = 4
-        
-        
-        #-Ranks all the way up
-        
+
+        # -Ranks all the way up
+
         for i in range(26):
             self.rankUp()
         rank_up = self.rank
         division_up = self.rankDivision
-        
-        
-        #-Ranks all the way down
-        
+
+        # -Ranks all the way down
+
         for i in range(26):
             self.rankDown()
         rank_down = self.rank
         division_down = self.rankDivision
         return rank_up, division_up, rank_down, division_down
+
+    def _test_placements(self, mmr):
+        """
+        Testing placement portion of rankUp
+        :param mmr: mmr for bucket test
+        :return: rank and division
+        """
+
+        self.amountOfGamesPlayed = 10
+        self.mmr = mmr
+        self.rank = 9
+        self.rankUp()
+        return self.rank, self.rankDivision
