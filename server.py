@@ -35,25 +35,22 @@ def match(players):
     """
 
     # - Variable Declarations
-    
+
     team_1_odds = 0
     team_2_odds = 0
-    
-    
-    #- Gets average of skill
-    
+
+    # - Gets average of skill
+
     for iplayer in players[:TEAM_SIZE]:
         team_1_odds = team_1_odds + iplayer.skill
     for iplayer in players[TEAM_SIZE:]:
         team_2_odds = team_2_odds + iplayer.skill
     team_1_odds = team_1_odds / TEAM_SIZE
-    team_2_odds = team_2_odds / TEAM_SIZE 
- 
- 
-    #- Gets the winner    
-      
-    winner = 1 + (team_1_odds > team_2_odds)
+    team_2_odds = team_2_odds / TEAM_SIZE
 
+    # - Gets the winner
+
+    winner = 1 + (team_1_odds > team_2_odds)
 
     # - Updates non rank/mmr/lp values
 
@@ -71,10 +68,8 @@ def handleMatchResults(players, winner, average_mmr):
     
         Variables:
             players = List of players in match
-            team_1_odds = The chances that team 1 would win
-            team_2_odds = The chances that team 2 would win
+            winner = Indicates which team won, 2 for team 1, 1 for team 2
             average_mmr = The average mmr of the match
-            mmrChange = The amount of mmr lost/gained each match
     """
     """
     mmrChange = 15
@@ -200,161 +195,209 @@ def handleMatchResults(players, winner, average_mmr):
                     players[i].lp -= mmrChange+9
                     players[i].rankUpMatch = False
     """
-    
+
     # - If team one won (0-4 in array)
     if (winner == 2):
         # -Determines if the players are above or below average mmr      
-        #-Runs through the losing team(5-9)
-        for i in range(TEAM_SIZE*2):
+        # -Runs through the losing team(5-9)
+        for i in range(TEAM_SIZE * 2):
             if (i < TEAM_SIZE):
                 handleMatchResultsHelper(players[i], average_mmr, 1)
             else:
                 handleMatchResultsHelper(players[i], average_mmr, -1)
     # -If Team 2 won
     else:
-        #-Runs through winning team (5-9)
+        # -Runs through winning team (5-9)
         # - Determines if above or below average mmr       
-        #-Runs through losing team (0-4)
-        for i in range(TEAM_SIZE*2):
+        # -Runs through losing team (0-4)
+        for i in range(TEAM_SIZE * 2):
             if (i < TEAM_SIZE):
                 handleMatchResultsHelper(players[i], average_mmr, -1)
             else:
                 handleMatchResultsHelper(players[i], average_mmr, 1)
 
-def handleMatchResultsHelper(player, average_mmr, gamePosition) :
-    # -Determines if the players are above or below average mmr
-    mmr_change = round(player.mmr_start/100) * gamePosition
-    change_range = round(mmr_change / 4)
-        
-    if (player.mmr < average_mmr):
-        if(0 < (player.mmr + (mmr_change + change_range)) < 2800):
-            player.mmr += (mmr_change + change_range)
-        checkMatch(player, gamePosition, (player.lp + (mmr_change + change_range)/1.25))
-    else:
-        if(0 < (player.mmr + mmr_change) < 2800):
-            player.mmr += mmr_change
-        checkMatch(player, gamePosition, (player.lp + (mmr_change - change_range)/1.25))
 
-def checkMatch(player, gamePosition, rankCheck) :
-    if(gamePosition < 0) :
+def handleMatchResultsHelper(player, average_mmr, gamePosition):
+    # -Determines if the players are above or below average mmr
+    mmr_change = round(player.mmr_start / 100) * gamePosition
+    change_range = abs(round(mmr_change / 4))
+
+    if (player.mmr < average_mmr):
+        if (0 < (player.mmr + (mmr_change + change_range)) < 2800):
+            player.mmr += (mmr_change + change_range)
+        checkMatch(player, gamePosition, (player.lp + (mmr_change + change_range) / 1.25))
+    else:
+        if (0 < (player.mmr + mmr_change) < 2800):
+            player.mmr += mmr_change
+        checkMatch(player, gamePosition, (player.lp + (mmr_change - change_range) / 1.25))
+
+
+def checkMatch(player, gamePosition, rankCheck):
+    if (gamePosition < 0):
         if (player.rankDownMatch == True):
             player.rankDown()
         elif (rankCheck < 0):
             player.lp = 0
             player.rankDownMatch = True
         else:
-            player.lp = rankCheck
+            player.lp = round(rankCheck)
             player.rankUpMatch = False
-    else :
+    else:
         if (player.rankUpMatch == True):
-                player.rankUp()
+            player.rankUp()
         elif (rankCheck > 100):
             player.lp = 100
             player.rankUpMatch = True
         else:
-            player.lp = rankCheck
+            player.lp = round(rankCheck)
             player.rankDownMatch = False
-    
+
+
 def pick_lobby(all_players):
     """
         Input
         -----
             all_players: np array containing all the players in the simulation
     """
-    
-    #- Puts all players that are online in a list
-    
+
+    # - Puts all players that are online in a list
+
     online_players = []
     for i in all_players:
         if i.is_online == True:
             online_players.append(i)
-    
-    
-    #-Sorts the players in the list by mmr
-    
-    online_players.sort(key = lambda x: x.mmr)
-    
-    
-    #-Inserts players into a numpy array
-    
+
+    # -Sorts the players in the list by mmr
+
+    online_players.sort(key=lambda x: x.mmr)
+
+    # -Inserts players into a numpy array
+
     online_players = np.array(online_players)
     ONLINE_COUNT = online_players.size
-    
-    
-    #-Runs the matches
-    
+
+    # -Runs the matches
+
     for i in range(round(ONLINE_COUNT / 20)):
         match_1_average_mmr = 0
         match_2_average_mmr = 0
-        
-        #-Gets top ten players, shuffles them, gets average mmr and winner
-        
+
+        # -Gets top ten players, shuffles them, gets average mmr and winner
+
         teamOne = online_players[:10]
         np.random.shuffle(teamOne)
         match_1_result = match(teamOne)
         for i in range(10):
             match_1_average_mmr = match_1_average_mmr + teamOne[i].mmr
-        
+
         match_1_average_mmr = match_1_average_mmr / 10
         handleMatchResults(teamOne, match_1_result, \
                            match_1_average_mmr)
-        
-        
-        #-Gets bottom ten players, shuffles them, gets average mmr and winner
-        
+
+        # -Gets bottom ten players, shuffles them, gets average mmr and winner
+
         teamTwo = online_players[-10:]
         np.random.shuffle(teamTwo)
         match_2_result = match(teamTwo)
-        
+
         for i in range(10):
-            match_2_average_mmr = match_2_average_mmr +teamTwo[i].mmr
-            
-        match_2_average_mmr = match_2_average_mmr / 10 
+            match_2_average_mmr = match_2_average_mmr + teamTwo[i].mmr
+
+        match_2_average_mmr = match_2_average_mmr / 10
         handleMatchResults(teamTwo, match_2_result, \
                            match_2_average_mmr)
-        
-        
-        #-Shrinks array so that players that played are not in it
-        
+
+        # -Shrinks array so that players that played are not in it
+
         online_players = online_players[10:-10]
-     
-           
-    #-If there are more than ten players left who haven't played
-    
-    if(online_players.size >= 10):
+
+    # -If there are more than ten players left who haven't played
+
+    if (online_players.size >= 10):
         match_average_mmr = 0
-        
-        #-Gets top ten players, shuffles them, gets average mmr and winner
-        
+
+        # -Gets top ten players, shuffles them, gets average mmr and winner
+
         teamThree = online_players[:10]
         np.random.shuffle(teamThree)
         match_result = match(teamThree)
-        
+
         for i in range(10):
-            match_average_mmr = match_average_mmr +teamThree[i].mmr
-            
+            match_average_mmr = match_average_mmr + teamThree[i].mmr
+
         match_average_mmr = match_average_mmr / 10
         handleMatchResults(teamThree, match_result, \
                            match_average_mmr)
-        
+
         online_players = online_players[10:]
-        
+
     return online_players
+
 
 def _test_match_winner_handling():
     player_list = []
     for i in range(10):
         player_list.append(Player())
+
+    #  Winning below MMR average
+
     player_list[0].mmr = 1000
+    player_list[0].rank = 2
+    player_list[0].rankDivision = 3
+
+    #  Winning above MMR average
+
     player_list[1].mmr = 2000
+    player_list[1].rank = 4
+    player_list[1].rankDivision = 1
+
+    #  100 LP
+
     player_list[2].mmr = 1000
+    player_list[2].rank = 2
+    player_list[2].rankDivision = 3
+    player_list[2].lp = 99
+
+    #  Require Rank Up
+
     player_list[3].mmr = 2000
+    player_list[3].rank = 4
+    player_list[3].rankDivision = 1
+    player_list[3].rankUpMatch = True
+    player_list[3].amountOfGamesPlayed = 20
+
     player_list[4].mmr = 1000
+
+    #  Losing below MMR average
+
     player_list[5].mmr = 2000
+    player_list[5].rank = 4
+    player_list[5].rankDivision = 1
+    player_list[5].lp = 50
+
+    #  Losing above MMR average
+
     player_list[6].mmr = 1000
+    player_list[6].rank = 2
+    player_list[6].rankDivision = 3
+    player_list[6].lp = 50
+
+    #  0 LP
+
     player_list[7].mmr = 2000
+    player_list[7].rank = 4
+    player_list[7].rankDivision = 1
+    player_list[7].lp = 1
+
+    #  Require rank down
+
     player_list[8].mmr = 1000
+    player_list[8].rank = 2
+    player_list[8].rankDivision = 3
+    player_list[8].rankDownMatch = True
+    player_list[8].amountOfGamesPlayed = 20
+
     player_list[9].mmr = 2000
-    for i in range(10):
-        handleMatchResults(player_list, 1, 1500)
+
+    handleMatchResults(player_list, 2, 1500)
     return player_list
