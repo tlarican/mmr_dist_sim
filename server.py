@@ -219,37 +219,44 @@ def handleMatchResults(players, winner, average_mmr):
 
 def handleMatchResultsHelper(player, average_mmr, gamePosition):
     # -Determines if the players are above or below average mmr
-    mmr_change = round(player.mmr_start / 100) * gamePosition
-    change_range = abs(round(mmr_change / 4))
+    mmr_difference = player.mmr - average_mmr
 
-    if (player.mmr < average_mmr):
-        if (0 < (player.mmr + (mmr_change + change_range)) < 2800):
-            player.mmr += (mmr_change + change_range)
-        checkMatch(player, gamePosition, (player.lp + (mmr_change + change_range) / 1.25))
+    if(gamePosition == -1 and mmr_difference >= 0):
+        mmr_difference = (mmr_difference * -2) / 1.5
+    elif(gamePosition == -1 and mmr_difference < 0):
+        mmr_difference = (-300 - mmr_difference) / 20
+    elif(gamePosition == 1 and mmr_difference >= 0):
+        mmr_difference = (300 - mmr_difference) / 20
     else:
-        if (0 < (player.mmr + mmr_change) < 2800):
-            player.mmr += mmr_change
-        checkMatch(player, gamePosition, (player.lp + (mmr_change - change_range) / 1.25))
+        mmr_difference = (mmr_difference * -2) / 1.5
+      
+    if(0 < player.mmr + mmr_difference < 2800):  
+        player.mmr += mmr_difference
+    checkMatch(player, gamePosition, mmr_difference)
 
 
-def checkMatch(player, gamePosition, rankCheck):
-    if (gamePosition < 0):
+def checkMatch(player, gamePosition, lpChange):
+    if(player.amountOfGamesPlayed < 10):
+        return
+    elif(player.amountOfGamesPlayed == 10):
+        player.rankUp()
+    elif (gamePosition < 0):
         if (player.rankDownMatch == True):
             player.rankDown()
-        elif (rankCheck < 0):
+        elif (player.lp + lpChange < 0):
             player.lp = 0
             player.rankDownMatch = True
         else:
-            player.lp = round(rankCheck)
+            player.lp += 1.05 * round(lpChange)
             player.rankUpMatch = False
     else:
         if (player.rankUpMatch == True):
             player.rankUp()
-        elif (rankCheck > 100):
+        elif (player.lp + lpChange > 100):
             player.lp = 100
             player.rankUpMatch = True
         else:
-            player.lp = round(rankCheck)
+            player.lp += 1.3 * round(lpChange)
             player.rankDownMatch = False
 
 

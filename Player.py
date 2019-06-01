@@ -38,7 +38,6 @@ class Player(object):
         self.rankUpMatch = False
         self.rankDownMatch = False
         self.has_played = False
-        self.mmr_start = mmr_default
 
         #  Skill Variables
         #  TODO: Add to as needed ie. When we expand how match winning works
