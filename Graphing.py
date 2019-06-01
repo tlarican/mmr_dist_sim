@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
-#  TODO(Conor): Running test suite results in color graph showing black and white
+
 # -------------------- General Function:showRanks ---------------------
 
 def showRanksUnsorted(players):
@@ -59,65 +59,65 @@ def showRanksUnsorted(players):
 
     # - Runs through players inserting the rank and division
     # - into the rankGraphArray
-    
+
     for i in range(size):
-        if(players[i].rank == 0 and players[i].rankDivision == 4):
+        if (players[i].rank == 0 and players[i].rankDivision == 4):
             rankGraphArray[i] = 0
-        elif(players[i].rank == 0 and players[i].rankDivision == 3):
+        elif (players[i].rank == 0 and players[i].rankDivision == 3):
             rankGraphArray[i] = 1
-        elif(players[i].rank == 0 and players[i].rankDivision == 2):
+        elif (players[i].rank == 0 and players[i].rankDivision == 2):
             rankGraphArray[i] = 2
-        elif(players[i].rank == 0 and players[i].rankDivision == 1):
+        elif (players[i].rank == 0 and players[i].rankDivision == 1):
             rankGraphArray[i] = 3
-        elif(players[i].rank == 1 and players[i].rankDivision == 4):
+        elif (players[i].rank == 1 and players[i].rankDivision == 4):
             rankGraphArray[i] = 4
-        elif(players[i].rank == 1 and players[i].rankDivision == 3):
+        elif (players[i].rank == 1 and players[i].rankDivision == 3):
             rankGraphArray[i] = 5
-        elif(players[i].rank == 1 and players[i].rankDivision == 2):
+        elif (players[i].rank == 1 and players[i].rankDivision == 2):
             rankGraphArray[i] = 6
-        elif(players[i].rank == 1 and players[i].rankDivision == 1):
+        elif (players[i].rank == 1 and players[i].rankDivision == 1):
             rankGraphArray[i] = 7
-        elif(players[i].rank == 2 and players[i].rankDivision == 4):
+        elif (players[i].rank == 2 and players[i].rankDivision == 4):
             rankGraphArray[i] = 8
-        elif(players[i].rank == 2 and players[i].rankDivision == 3):
+        elif (players[i].rank == 2 and players[i].rankDivision == 3):
             rankGraphArray[i] = 9
-        elif(players[i].rank == 2 and players[i].rankDivision == 2):
+        elif (players[i].rank == 2 and players[i].rankDivision == 2):
             rankGraphArray[i] = 10
-        elif(players[i].rank == 2 and players[i].rankDivision == 1):
+        elif (players[i].rank == 2 and players[i].rankDivision == 1):
             rankGraphArray[i] = 11
-        elif(players[i].rank == 3 and players[i].rankDivision == 4):
+        elif (players[i].rank == 3 and players[i].rankDivision == 4):
             rankGraphArray[i] = 12
-        elif(players[i].rank == 3 and players[i].rankDivision == 3):
+        elif (players[i].rank == 3 and players[i].rankDivision == 3):
             rankGraphArray[i] = 13
-        elif(players[i].rank == 3 and players[i].rankDivision == 2):
+        elif (players[i].rank == 3 and players[i].rankDivision == 2):
             rankGraphArray[i] = 14
-        elif(players[i].rank == 3 and players[i].rankDivision == 1):
+        elif (players[i].rank == 3 and players[i].rankDivision == 1):
             rankGraphArray[i] = 15
-        elif(players[i].rank == 4 and players[i].rankDivision == 4):
+        elif (players[i].rank == 4 and players[i].rankDivision == 4):
             rankGraphArray[i] = 16
-        elif(players[i].rank == 4 and players[i].rankDivision == 3):
+        elif (players[i].rank == 4 and players[i].rankDivision == 3):
             rankGraphArray[i] = 17
-        elif(players[i].rank == 4 and players[i].rankDivision == 2):
+        elif (players[i].rank == 4 and players[i].rankDivision == 2):
             rankGraphArray[i] = 18
-        elif(players[i].rank == 4 and players[i].rankDivision == 1):
+        elif (players[i].rank == 4 and players[i].rankDivision == 1):
             rankGraphArray[i] = 19
-        elif(players[i].rank == 5 and players[i].rankDivision == 4):
+        elif (players[i].rank == 5 and players[i].rankDivision == 4):
             rankGraphArray[i] = 20
-        elif(players[i].rank == 5 and players[i].rankDivision == 3):
+        elif (players[i].rank == 5 and players[i].rankDivision == 3):
             rankGraphArray[i] = 21
-        elif(players[i].rank == 5 and players[i].rankDivision == 2):
+        elif (players[i].rank == 5 and players[i].rankDivision == 2):
             rankGraphArray[i] = 22
-        elif(players[i].rank == 5 and players[i].rankDivision == 1):
+        elif (players[i].rank == 5 and players[i].rankDivision == 1):
             rankGraphArray[i] = 23
-        elif(players[i].rank == 6):
+        elif (players[i].rank == 6):
             rankGraphArray[i] = 24
-        elif(players[i].rank == 7):
+        elif (players[i].rank == 7):
             rankGraphArray[i] = 25
-        elif(players[i].rank == 8):
+        elif (players[i].rank == 8):
             rankGraphArray[i] = 26
         else:
             rankGraphArray[i] = 27
-            
+
     rankGraphArray.sort()
 
     # - Runs through the ranksGrapharray setting the colors of the cells
@@ -321,23 +321,20 @@ def showMMR(players):
     plt.xlabel("Skill")
     plt.ylabel("MMR")
 
+    # -Plots histogram for skill and rank
 
-    #-Plots histogram for skill and rank
-    
     plt.figure(3)
     plt.title("Skill distribution")
     plt.hist(skill)
     plt.xlabel("Skill")
     plt.ylabel("Frequency")
-    
+
     plt.figure(4)
     plt.hist(ranks, 9)
     plt.title("Rank distrubution")
     plt.xlabel("rank")
     plt.ylabel("frequency")
-    
+
     # -Shows the plots
 
     plt.show()
-
-    
