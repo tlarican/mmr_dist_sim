@@ -56,9 +56,17 @@ def match(players):
     # - Gets average of all skills
 
     for iplayer in players[:TEAM_SIZE]:
-        team_1_odds = team_1_odds + iplayer.skill
+        team_1_odds += 0.25 * iplayer.communication + 0.25 * iplayer.tilt + \
+                       0.25 * iplayer.internet + 0.25 * iplayer.leadership + \
+                       early_imp * iplayer.early_game + late_imp * iplayer.late_game + \
+                       micro_imp * iplayer.micro + macro_imp * iplayer.macro
+    
     for iplayer in players[TEAM_SIZE:]:
-        team_2_odds = team_2_odds + iplayer.skill
+        team_2_odds += 0.25 * iplayer.communication + 0.25 * iplayer.tilt + \
+                       0.25 * iplayer.internet + 0.25 * iplayer.leadership + \
+                       early_imp * iplayer.early_game + late_imp * iplayer.late_game + \
+                       micro_imp * iplayer.micro + macro_imp * iplayer.macro
+    
     team_1_odds = team_1_odds / TEAM_SIZE
     team_2_odds = team_2_odds / TEAM_SIZE
 
