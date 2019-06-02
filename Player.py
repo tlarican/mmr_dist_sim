@@ -48,8 +48,13 @@ class Player(object):
         self.leadership = np.random.normal(5, 3)
 
         #  TODO: Start removing dependencies on skill
-        self.skill = np.random.normal(5, 2)
-
+        self.early_game = np.random.normal(5, 2)
+        self.late_game = np.random.normal(5, 2)
+        self.micro = np.random.normal(5, 2)
+        self.macro = np.random.normal(5, 2)
+        
+        self.skill  = self.early_game + self.late_game + self.micro + self.macro
+        
         #  TODO: Is this being used at all?
         self.is_online = True
 
