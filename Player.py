@@ -41,13 +41,13 @@ class Player(object):
 
         #  Skill Variables
         #  TODO: Add to as needed ie. When we expand how match winning works
-        #  TODO: So far, these variables apply to all stages of a game
+        #  These variables' importance stays the same throughout all matches
         self.communication = np.random.normal(5, 2)
         self.tilt = np.random.normal(5, 3)
         self.internet = 8 - np.random.normal(2, 1)
         self.leadership = np.random.normal(5, 3)
 
-        #  TODO: Start removing dependencies on skill
+        #  These variables' importance is randomly distributed per match
         self.early_game = np.random.normal(5, 2)
         self.late_game = np.random.normal(5, 2)
         self.micro = np.random.normal(5, 2)
