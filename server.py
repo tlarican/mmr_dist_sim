@@ -38,8 +38,22 @@ def match(players):
 
     team_1_odds = 0
     team_2_odds = 0
-
-    # - Gets average of skill
+    
+    # - Decides the importance of each factor in this particular match
+    
+    early_imp = np.random.random()
+    late_imp = np.random.random()
+    micro_imp = np.random.random()
+    macro_imp = np.random.random()
+    
+    total_imp = early_imp + late_imp + micro_imp + macro_imp
+    
+    early_imp /= total_imp
+    late_imp /= total_imp
+    micro_imp /= total_imp
+    macro_imp /= total_imp
+    
+    # - Gets average of all skills
 
     for iplayer in players[:TEAM_SIZE]:
         team_1_odds = team_1_odds + iplayer.skill
