@@ -12,7 +12,6 @@ import numpy as np
 
 
 # -------------------- Class: Player ------------------------------------
-#  TODO: Change how ranking masters, grandmasters, challenger works
 class Player(object):
     """Create and manage Player variables and attributes
     
@@ -39,21 +38,21 @@ class Player(object):
         self.rankDownMatch = False
         self.has_played = False
         self.userCreated = False
+
         #  Skill Variables
-        #  TODO: Add to as needed ie. When we expand how match winning works
-        #  TODO: So far, these variables apply to all stages of a game
         self.communication = np.random.normal(5, 2)
         self.tilt = np.random.normal(5, 3)
         self.internet = 8 - np.random.normal(2, 1)
         self.leadership = np.random.normal(5, 3)
         self.gameKnowledge = np.random.normal(5, 3)
-        self.cs = np.random.normal(5, 3)
         self.reactionTimes = np.random.normal(5, 3)
+        self.early_game = np.random.normal(5, 3)
+        self.late_game = np.random.normal(5, 3)
+        self.mechanics = np.random.normal(5, 3)
 
         #  TODO: Start removing dependencies on skill
         self.skill = np.random.normal(5, 2)
 
-        #  TODO: Is this being used at all?
         self.is_online = True
 
     # -------------------- Function: rankUp ------------------------------------
