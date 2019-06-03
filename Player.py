@@ -38,7 +38,7 @@ class Player(object):
         self.rankUpMatch = False
         self.rankDownMatch = False
         self.has_played = False
-
+        self.userCreated = False
         #  Skill Variables
         #  TODO: Add to as needed ie. When we expand how match winning works
         #  TODO: So far, these variables apply to all stages of a game
