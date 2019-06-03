@@ -13,6 +13,37 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 
+# -------------------- General Function:showPlayerStats ---------------------
+def showPlayerStats(players):
+    """This will look for the player the user created and get the stats
+    
+        Variables:
+            players: a list of the players 
+            userPlayer: bool used to find player
+            count: To track where you're looking for the player
+    """
+    
+    #-Variable Declarations
+    
+    userPlayer = False
+    count = 0
+    
+    
+    #-Finds the player
+    
+    while(userPlayer == False):
+        userPlayer = players[count].userCreated
+        count += 1
+    
+    
+    #-Prints the stats
+    
+    print("Amount of games played:", players[count].amountOfGamesPlayed)
+    print("Rank:", players[count].rank, "Rank Division:", players[count].rankDivision, \
+        "Lp:", players[count].lp)
+    print("MMR:", players[count].mmr)
+    
+    
 # -------------------- General Function:showRanks ---------------------
 
 def showRanksUnsorted(players):
