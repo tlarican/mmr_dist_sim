@@ -27,13 +27,11 @@ class Tests(object):
 
     def test_multiple_rounds(self):
         model = Model()
-        model.player_list[0].createUserPlayer(5, 5, 5, 5, 5, 5, 5, 10)
         for i in range(1000):
             server.pick_lobby(model.player_list)
         if SHOW_GRAPHS:
             Graphing.showMMR(model.player_list)
             Graphing.showRanksUnsorted(model.player_list)
-        Graphing.showPlayerStats(model.player_list)
 
     def test_match_winner_handling(self):
         players = server._test_match_winner_handling()
