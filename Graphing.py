@@ -22,26 +22,24 @@ def showPlayerStats(players):
             userPlayer: bool used to find player
             count: To track where you're looking for the player
     """
-    
-    #-Variable Declarations
-    
+
+    # -Variable Declarations
+
     userPlayer = False
     count = 0
-    
-    
-    #-Finds the player
+
+    # -Finds the player
 
     userPlayer = players[count].userCreated
-    
-    
-    #-Prints the stats
-    
+
+    # -Prints the stats
+
     print("Amount of games played:", players[count].amountOfGamesPlayed)
     print("Rank:", players[count].rank, "Rank Division:", players[count].rankDivision, \
-        "Lp:", players[count].lp)
+          "Lp:", players[count].lp)
     print("MMR:", players[count].mmr)
-    
-    
+
+
 # -------------------- General Function:showRanks ---------------------
 
 def showRanksUnsorted(players):
@@ -326,7 +324,11 @@ def showMMR(players):
 
     for i in range(size):
         mmr[i] = players[i].mmr
-        skill[i] = players[i].skill
+        skill[i] = players[i].communication + players[i].tilt + \
+                   players[i].internet + players[i].leadership + \
+                   players[i].gameKnowledge + players[i].reactionTimes + \
+                   players[i].early_game + players[i].late_game + \
+                   players[i].mechanics
         ranks[i] = players[i].rank
 
     # -Plots the histogram
@@ -345,8 +347,8 @@ def showMMR(players):
     # - Borrowed from https://stackoverflow.com/questions/22239691/code-for-best-fit-straight-line-of-a-scatter-plot-in-python
     plt.plot(np.unique(skill), np.poly1d(np.polyfit(skill, mmr, 1))(np.unique(skill)), "r-")
 
-    plt.title("Skill vs. MMR")
-    plt.axis([-2, 10, 0, 2800])
+    plt.title("Aggregate Skill vs. MMR")
+    plt.axis([10, 80, 0, 2800])
     plt.xlabel("Skill")
     plt.ylabel("MMR")
 
