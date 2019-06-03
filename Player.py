@@ -46,6 +46,9 @@ class Player(object):
         self.tilt = np.random.normal(5, 3)
         self.internet = 8 - np.random.normal(2, 1)
         self.leadership = np.random.normal(5, 3)
+        self.gameKnowledge = np.random.normal(5, 3)
+        self.cs = np.random.normal(5, 3)
+        self.reactionTimes = np.random.normal(5, 3)
 
         #  TODO: Start removing dependencies on skill
         self.skill = np.random.normal(5, 2)
@@ -218,7 +221,26 @@ class Player(object):
 
         self.rankDownMatch = False
         self.lp = 30
-
+    
+    
+    # -------------------- Function: createUserPlayer ------------------------------------
+    
+    def createUserPlayer(self, communication, tilt, internet, leadership, gameKnowledge, cs, reactionTimes):
+        """Allows players to create their own player and enter in their skill levels
+            
+            Variables: Line up with player variables for the init
+        """
+        
+        self.userCreated = True
+        self.communication = communication
+        self.tilt = tilt
+        self.internet = internet
+        self.leadership = leadership
+        self.gameKnowledge = gameKnowledge
+        self.cs = cs
+        self.reactionTimes = reactionTimes
+        
+    
     # -------------------- Function: _test_rank_methods ------------------------
 
     def _test_rank_min_max(self):
