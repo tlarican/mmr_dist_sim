@@ -225,7 +225,7 @@ class Player(object):
     
     # -------------------- Function: createUserPlayer ------------------------------------
     
-    def createUserPlayer(self, communication, tilt, internet, leadership, gameKnowledge, cs, reactionTimes):
+    def createUserPlayer(self, communication, tilt, internet, leadership, gameKnowledge, cs, reactionTimes, skill):
         """Allows players to create their own player and enter in their skill levels
             
             Variables: Line up with player variables for the init
@@ -239,6 +239,7 @@ class Player(object):
         self.gameKnowledge = gameKnowledge
         self.cs = cs
         self.reactionTimes = reactionTimes
+        self.skill = skill
         
     
     # -------------------- Function: _test_rank_methods ------------------------

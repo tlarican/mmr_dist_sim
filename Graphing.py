@@ -30,10 +30,8 @@ def showPlayerStats(players):
     
     
     #-Finds the player
-    
-    while(userPlayer == False):
-        userPlayer = players[count].userCreated
-        count += 1
+
+    userPlayer = players[count].userCreated
     
     
     #-Prints the stats

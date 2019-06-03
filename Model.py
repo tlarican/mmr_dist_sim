@@ -11,6 +11,7 @@
 import numpy as np
 from Player import Player
 import Graphing
+import server
 
 
 # -------------------- Class: Model ------------------------------------
@@ -34,3 +35,10 @@ class Model(object):
         :return: amount of players initialized
         """
         return len(self.player_list)
+
+model = Model()
+model.player_list[0].createUserPlayer(5, 5, 5, 5, 5, 5, 5, 1000000)
+for i in range(1000):
+    server.pick_lobby(model.player_list)
+print(model.player_list[0].skill)
+Graphing.showPlayerStats(model.player_list)
