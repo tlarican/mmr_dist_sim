@@ -36,21 +36,35 @@ def match(players):
 
     # - Variable Declarations
 
-    team_1_odds = 0
-    team_2_odds = 0
+    team_1_skill_agg = 0
+    team_2_skill_agg = 0
 
     # - Gets average of skill
 
     for iplayer in players[:TEAM_SIZE]:
-        team_1_odds = team_1_odds + iplayer.skill
+        team_1_skill_agg = 3 * np.random.normal(1, .05) * iplayer.communication + \
+                           2 * np.random.normal(1, .05) * iplayer.tilt + \
+                           2 * np.random.normal(1, .05) * iplayer.internet + \
+                           3 * np.random.normal(1, .05) * iplayer.leadership + \
+                           3 * np.random.normal(1, .05) * iplayer.gameKnowledge + \
+                           np.random.normal(1, .05) * iplayer.reactionTimes + \
+                           4 * np.random.normal(1, .05) * iplayer.early_game + \
+                           4 * np.random.normal(1, .05) * iplayer.late_game + \
+                           5 * np.random.normal(1, .05) * iplayer.mechanics
     for iplayer in players[TEAM_SIZE:]:
-        team_2_odds = team_2_odds + iplayer.skill
-    team_1_odds = team_1_odds / TEAM_SIZE
-    team_2_odds = team_2_odds / TEAM_SIZE
+        team_2_skill_agg = 3 * np.random.normal(1, .05) * iplayer.communication + \
+                           2 * np.random.normal(1, .05) * iplayer.tilt + \
+                           2 * np.random.normal(1, .05) * iplayer.internet + \
+                           3 * np.random.normal(1, .05) * iplayer.leadership + \
+                           3 * np.random.normal(1, .05) * iplayer.gameKnowledge + \
+                           np.random.normal(1, .05) * iplayer.reactionTimes + \
+                           4 * np.random.normal(1, .05) * iplayer.early_game + \
+                           4 * np.random.normal(1, .05) * iplayer.late_game + \
+                           5 * np.random.normal(1, .05) * iplayer.mechanics
 
     # - Gets the winner
 
-    winner = 1 + (team_1_odds > team_2_odds)
+    winner = 1 + (team_1_skill_agg > team_2_skill_agg)
 
     # - Updates non rank/mmr/lp values
 
@@ -222,63 +236,63 @@ def _test_match_winner_handling():
 
     #  Winning below MMR average
 
-    player_list[0].mmr = 1000
+    player_list[0].mmr = 1450
     player_list[0].rank = 2
     player_list[0].rankDivision = 3
 
     #  Winning above MMR average
 
-    player_list[1].mmr = 2000
+    player_list[1].mmr = 1550
     player_list[1].rank = 4
     player_list[1].rankDivision = 1
 
     #  100 LP
 
-    player_list[2].mmr = 1000
+    player_list[2].mmr = 1450
     player_list[2].rank = 2
     player_list[2].rankDivision = 3
     player_list[2].lp = 99
 
     #  Require Rank Up
 
-    player_list[3].mmr = 2000
+    player_list[3].mmr = 1550
     player_list[3].rank = 4
     player_list[3].rankDivision = 1
     player_list[3].rankUpMatch = True
     player_list[3].amountOfGamesPlayed = 20
 
-    player_list[4].mmr = 1000
+    player_list[4].mmr = 1450
 
     #  Losing below MMR average
 
-    player_list[5].mmr = 2000
+    player_list[5].mmr = 1550
     player_list[5].rank = 4
     player_list[5].rankDivision = 1
     player_list[5].lp = 50
 
     #  Losing above MMR average
 
-    player_list[6].mmr = 1000
+    player_list[6].mmr = 1450
     player_list[6].rank = 2
     player_list[6].rankDivision = 3
     player_list[6].lp = 50
 
     #  0 LP
 
-    player_list[7].mmr = 2000
+    player_list[7].mmr = 1550
     player_list[7].rank = 4
     player_list[7].rankDivision = 1
     player_list[7].lp = 1
 
     #  Require rank down
 
-    player_list[8].mmr = 1000
+    player_list[8].mmr = 1450
     player_list[8].rank = 2
     player_list[8].rankDivision = 3
     player_list[8].rankDownMatch = True
     player_list[8].amountOfGamesPlayed = 20
 
-    player_list[9].mmr = 2000
+    player_list[9].mmr = 1550
 
     handleMatchResults(player_list, 2, 1500)
     return player_list
