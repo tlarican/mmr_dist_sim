@@ -60,12 +60,33 @@ class Model(object):
 
 
 if __name__ == "__main__":
+    
+    #-Amount of games that will be simulated
+    
     GAMES_TO_SIM = 1000
+    
+    #-If you want graphs displayed
+    
     SHOW_GRAPHS = True
+    
+    #-Creates the model
+    
     model = Model()
-    model.player_list[0].createUserPlayer(6, 6, 6, 6, 6, 6, 6, 6, 6)
+    
+    #-Select the skills you want for your user created player 
+    
+    model.player_list[0].createUserPlayer(communication = 6, tilt = 6, internet = 6, leadership = 6, \
+                         gameKnowledge = 6, reactionTimes = 6, early_game = 6, late_game = 6, \
+                         mechanics = 6)
+    
+    #-Runs the sims
+    
     for i in range(GAMES_TO_SIM):
         server.pick_lobby(model.player_list)
+        
+    #-Graphs the functions
+    
     if SHOW_GRAPHS:
         Graphing.showMMR(model.player_list)
         Graphing.showRanksUnsorted(model.player_list)
+        Graphing.showPlayerStats(model.player_list)
