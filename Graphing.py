@@ -19,18 +19,13 @@ def showPlayerStats(players):
     
         Variables:
             players: a list of the players 
-            userPlayer: bool used to find player
             count: To track where you're looking for the player
     """
 
     # -Variable Declarations
 
-    userPlayer = False
     count = 0
-
-    # -Finds the player
-
-    userPlayer = players[count].userCreated
+    
 
     # -Prints the stats
 

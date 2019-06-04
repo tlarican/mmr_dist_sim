@@ -4,6 +4,7 @@ from Player import Player
 import test_model
 import test_player
 import test_server
+import test_graphing
 
 
 class SetUpTest(unittest.TestCase):
@@ -20,9 +21,13 @@ class PlayerTests(SetUpTest, test_player.Tests): pass
 class ServerTests(SetUpTest, test_server.Tests): pass
 
 
+class GraphingTests(SetUpTest, test_graphing.Tests):pass
+
+
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(ModelTests))
     suite.addTest(unittest.makeSuite(PlayerTests))
     suite.addTest(unittest.makeSuite(ServerTests))
+    suite.addTest(unittest.makeSuite(GraphingTests))
     unittest.TextTestRunner().run(suite)
