@@ -67,7 +67,7 @@ def match(players):
 
     # - Updates non rank/mmr/lp values
 
-    for i in range(10):
+    for i in range(TEAM_SIZE * 2):
         if (players[i].amountOfGamesPlayed == 8):
             players[i].rankUpMatch = True
         players[i].has_played = True
@@ -252,67 +252,67 @@ def pick_lobby(all_players):
 
     # -Runs the matches
 
-    for i in range(round(ONLINE_COUNT / 20)):
+    for i in range(round(ONLINE_COUNT / (TEAM_SIZE * 4))):
         match_1_average_mmr = 0
         match_2_average_mmr = 0
 
         # -Gets top ten players, shuffles them, gets average mmr and winner
 
-        teamOne = online_players[:10]
+        teamOne = online_players[:(TEAM_SIZE * 2)]
         np.random.shuffle(teamOne)
         match_1_result = match(teamOne)
         
-        for i in range(10):
+        for i in range((TEAM_SIZE * 2)):
             match_1_average_mmr = match_1_average_mmr + teamOne[i].mmr
 
         #- Calls handle matches to deal with the players
         
-        match_1_average_mmr = match_1_average_mmr / 10
+        match_1_average_mmr = match_1_average_mmr / (TEAM_SIZE * 2)
         handleMatchResults(teamOne, match_1_result, \
                            match_1_average_mmr)
 
         # -Gets bottom ten players, shuffles them, gets average mmr and winner
 
-        teamTwo = online_players[-10:]
+        teamTwo = online_players[-(TEAM_SIZE * 2):]
         np.random.shuffle(teamTwo)
         match_2_result = match(teamTwo)
 
-        for i in range(10):
+        for i in range((TEAM_SIZE * 2)):
             match_2_average_mmr = match_2_average_mmr + teamTwo[i].mmr
 
         #- Calls handle matches to deal with the players
         
-        match_2_average_mmr = match_2_average_mmr / 10
+        match_2_average_mmr = match_2_average_mmr / (TEAM_SIZE * 2)
         handleMatchResults(teamTwo, match_2_result, \
                            match_2_average_mmr)
 
         # -Shrinks array so that players that played are not in it
 
-        online_players = online_players[10:-10]
+        online_players = online_players[(TEAM_SIZE * 2):-(TEAM_SIZE * 2)]
 
     # -If there are more than ten players left who haven't played
 
-    if (online_players.size >= 10):
+    if (online_players.size >= (TEAM_SIZE * 2)):
         match_average_mmr = 0
 
         # -Gets top ten players, shuffles them, gets average mmr and winner
 
-        teamThree = online_players[:10]
+        teamThree = online_players[:(TEAM_SIZE * 2)]
         np.random.shuffle(teamThree)
         match_result = match(teamThree)
 
-        for i in range(10):
+        for i in range((TEAM_SIZE * 2)):
             match_average_mmr = match_average_mmr + teamThree[i].mmr
 
         #- Calls handle matches to deal with the players
         
-        match_average_mmr = match_average_mmr / 10
+        match_average_mmr = match_average_mmr / (TEAM_SIZE * 2)
         handleMatchResults(teamThree, match_result, \
                            match_average_mmr)
 
         # -Shrinks array so that players that played are not in it
         
-        online_players = online_players[10:]
+        online_players = online_players[(TEAM_SIZE * 2):]
 
     return online_players
 
