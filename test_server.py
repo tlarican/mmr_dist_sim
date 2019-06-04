@@ -14,7 +14,7 @@ import Graphing
 
 #- Global variable to determine if graphs should be shown
 
-SHOW_GRAPHS = True
+SHOW_GRAPHS = False
 AMOUNT_OF_MATCHES = 1000
 
 class Tests(object):
@@ -84,9 +84,9 @@ class Tests(object):
         
         players = server._test_match_winner_handling()
         self.assertEqual(1517, players[0].mmr, msg='Win Below MMR')
-        self.assertEqual(87, players[0].lp, msg='Win Below LP')
+        self.assertEqual(89, players[0].lp, msg='Win Below LP')
         self.assertEqual(1562, players[1].mmr, msg='Win Above MMR')
-        self.assertEqual(16, players[1].lp, msg='Win Above LP')
+        self.assertEqual(15, players[1].lp, msg='Win Above LP')
         self.assertEqual(100, players[2].lp, msg='At Rank Up LP')
         self.assertTrue(players[2].rankUpMatch, msg='At Rank Up Bool')
         self.assertEqual(5, players[3].rank, msg='Rank Up Rank')
