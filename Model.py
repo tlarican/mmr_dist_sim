@@ -12,6 +12,7 @@ import numpy as np
 from Player import Player
 import Graphing
 import server
+import csv
 
 
 # -------------------- Class: Model ------------------------------------
@@ -29,6 +30,20 @@ class Model(object):
         for i in range(number_players):
             self.player_list.append(Player())
 
+    def to_csv(self):
+        with open('Players.csv', 'wt', newline='\n') as out:
+            fields = ('mmr', 'communication', 'tilt', 'internet', 'leadership',
+                      'gameKnowledge', 'reactionTimes', 'early_game',
+                      'late_game', 'mechanics')
+            writer = csv.writer(out)
+            writer.writerow(fields)
+            for iplayer in self.player_list:
+                row = (iplayer.mmr, iplayer.communication, iplayer.tilt,
+                       iplayer.internet, iplayer.leadership,
+                       iplayer.gameKnowledge, iplayer.reactionTimes,
+                       iplayer.early_game, iplayer.late_game, iplayer.mechanics)
+                writer.writerow(row)
+
     def _test_player_list_size(self):
         """
         Testing if amount of players initialized is correct
@@ -36,9 +51,13 @@ class Model(object):
         """
         return len(self.player_list)
 
-model = Model()
-model.player_list[0].createUserPlayer(5, 5, 5, 5, 5, 5, 5, 1000000)
-for i in range(1000):
-    server.pick_lobby(model.player_list)
-print(model.player_list[0].skill)
-Graphing.showPlayerStats(model.player_list)
+
+if __name__ == "__main__":
+    GAMES_TO_SIM = 1000
+    SHOW_GRAPHS = True
+    model = Model()
+    for i in range(GAMES_TO_SIM):
+        server.pick_lobby(model.player_list)
+    if SHOW_GRAPHS:
+        Graphing.showMMR(model.player_list)
+        Graphing.showRanksUnsorted(model.player_list)
