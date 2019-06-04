@@ -119,7 +119,7 @@ def handleMatchResultsHelper(player, average_mmr, gamePosition):
         mmr_difference = (mmr_difference * -2) / 1.5
       
     if(0 < player.mmr + mmr_difference < 2800):  
-        player.mmr += mmr_difference
+        player.mmr += int(round(mmr_difference))
     checkMatch(player, gamePosition, mmr_difference)
 
 
@@ -135,7 +135,7 @@ def checkMatch(player, gamePosition, lpChange):
             player.lp = 0
             player.rankDownMatch = True
         else:
-            player.lp += 1.05 * round(lpChange)
+            player.lp += round(1.05 * lpChange)
             player.rankUpMatch = False
     else:
         if (player.rankUpMatch == True):
@@ -144,7 +144,7 @@ def checkMatch(player, gamePosition, lpChange):
             player.lp = 100
             player.rankUpMatch = True
         else:
-            player.lp += 1.3 * round(lpChange)
+            player.lp += round(1.3 * lpChange)
             player.rankDownMatch = False
 
 
@@ -239,12 +239,14 @@ def _test_match_winner_handling():
     player_list[0].mmr = 1450
     player_list[0].rank = 2
     player_list[0].rankDivision = 3
+    player_list[0].amountOfGamesPlayed = 20
 
     #  Winning above MMR average
 
     player_list[1].mmr = 1550
     player_list[1].rank = 4
     player_list[1].rankDivision = 1
+    player_list[1].amountOfGamesPlayed = 20
 
     #  100 LP
 
@@ -252,6 +254,7 @@ def _test_match_winner_handling():
     player_list[2].rank = 2
     player_list[2].rankDivision = 3
     player_list[2].lp = 99
+    player_list[2].amountOfGamesPlayed = 20
 
     #  Require Rank Up
 
@@ -262,20 +265,23 @@ def _test_match_winner_handling():
     player_list[3].amountOfGamesPlayed = 20
 
     player_list[4].mmr = 1450
+    player_list[4].amountOfGamesPlayed = 11
 
-    #  Losing below MMR average
+    #  Losing above MMR average
 
     player_list[5].mmr = 1550
     player_list[5].rank = 4
     player_list[5].rankDivision = 1
     player_list[5].lp = 50
+    player_list[5].amountOfGamesPlayed = 20
 
-    #  Losing above MMR average
+    #  Losing below MMR average
 
     player_list[6].mmr = 1450
     player_list[6].rank = 2
     player_list[6].rankDivision = 3
     player_list[6].lp = 50
+    player_list[6].amountOfGamesPlayed = 20
 
     #  0 LP
 
@@ -283,6 +289,7 @@ def _test_match_winner_handling():
     player_list[7].rank = 4
     player_list[7].rankDivision = 1
     player_list[7].lp = 1
+    player_list[7].amountOfGamesPlayed = 20
 
     #  Require rank down
 
@@ -293,6 +300,7 @@ def _test_match_winner_handling():
     player_list[8].amountOfGamesPlayed = 20
 
     player_list[9].mmr = 1550
+    player_list[9].amountOfGamesPlayed = 20
 
     handleMatchResults(player_list, 2, 1500)
     return player_list
