@@ -15,24 +15,6 @@ def match(players):
         ------
             returns 1 if team 1 wins, otherwise 2
     """
-    """
-    #-Adds together the players skills that affect the early game for both teams
-    
-    team_1_earlyGame = np.average(players[:TEAM_SIZE].skill + players[:TEAM_SIZE].lastHitting + \
-        players[:TEAM_SIZE].tilt + players[:TEAM_SIZE].waveManagement + players[:TEAM_SIZE].mechanics)
-        
-    team_2_earlyGame = np.average(players[TEAM_SIZE:].skill + players[TEAM_SIZE:].lastHitting + \
-        players[TEAM_SIZE:].tilt + players[TEAM_SIZE:].waveManagement + players[TEAM_SIZE:].mechanics)
-    
-    
-    #-Sets the percent chance to win by dividing it by the amount of skills * 10
-    
-    team_1_earlyGame = team_1_earlyGame / 50
-    team_2_earlyGame = team_2_earlyGame / 50
-    
-    
-    #-
-    """
 
     # - Variable Declarations
 

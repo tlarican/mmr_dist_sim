@@ -10,7 +10,7 @@ import server
 from Model import Model
 import Graphing
 
-SHOW_GRAPHS = False
+SHOW_GRAPHS = True
 
 
 class Tests(object):
@@ -27,11 +27,15 @@ class Tests(object):
 
     def test_multiple_rounds(self):
         model = Model()
+        model.player_list[0].createUserPlayer(6, 6, 6, 6,
+                         6, 6, 6, 6,
+                         6)
         for i in range(1000):
             server.pick_lobby(model.player_list)
         if SHOW_GRAPHS:
             Graphing.showMMR(model.player_list)
             Graphing.showRanksUnsorted(model.player_list)
+            Graphing.showPlayerStats(model.player_list)
         model.to_csv()
 
     def test_match_winner_handling(self):
