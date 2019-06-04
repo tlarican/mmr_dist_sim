@@ -76,7 +76,7 @@ if __name__ == "__main__":
     #-Select the skills you want for your user created player 
     
     model.player_list[0].createUserPlayer(communication = 6, tilt = 6, internet = 6, leadership = 6, \
-                         gameKnowledge = 6, reactionTimes = 6, early_game = 6, late_game = 6, \
+                         gameKnowledge = 6, reactionTimes = 6, early_game = 6, late_game = 6,\
                          mechanics = 6)
     
     #-Runs the sims

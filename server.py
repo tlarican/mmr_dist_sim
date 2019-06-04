@@ -195,7 +195,7 @@ def checkMatch(player, gamePosition, lpChange):
         #- changes lp for the player
         
         else:
-            player.lp += round(1.05 * lpChange)
+            player.lp += round(.79 * lpChange)
             player.rankUpMatch = False
             
     #- If the player won
@@ -216,7 +216,7 @@ def checkMatch(player, gamePosition, lpChange):
         #- Adds the lp to the player
         
         else:
-            player.lp += round(1.33 * lpChange)
+            player.lp += round(.99 * lpChange)
             player.rankDownMatch = False
 
 
