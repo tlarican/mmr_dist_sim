@@ -37,5 +37,5 @@ if __name__ == '__main__':
     suite.addTest(unittest.makeSuite(ModelTests))
     suite.addTest(unittest.makeSuite(PlayerTests))
     suite.addTest(unittest.makeSuite(ServerTests))
-    #suite.addTest(unittest.makeSuite(GraphingTests))
+    suite.addTest(unittest.makeSuite(GraphingTests))
     unittest.TextTestRunner().run(suite)

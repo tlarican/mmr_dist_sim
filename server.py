@@ -138,7 +138,7 @@ def handleMatchResultsHelper(player, average_mmr, gamePosition):
     elif(gamePosition == -1 and mmr_difference < 0):
         mmr_difference = (-300 - mmr_difference) / 20
     elif(gamePosition == 1 and mmr_difference >= 0):
-        mmr_difference = (300 - mmr_difference) / 20
+        mmr_difference = (280 - mmr_difference) / 20
     else:
         mmr_difference = (mmr_difference * -2) / 1.5
       
@@ -216,7 +216,7 @@ def checkMatch(player, gamePosition, lpChange):
         #- Adds the lp to the player
         
         else:
-            player.lp += round(1.3 * lpChange)
+            player.lp += round(1.33 * lpChange)
             player.rankDownMatch = False
 
 

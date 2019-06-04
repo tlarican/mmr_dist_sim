@@ -63,6 +63,7 @@ if __name__ == "__main__":
     GAMES_TO_SIM = 1000
     SHOW_GRAPHS = True
     model = Model()
+    model.player_list[0].createUserPlayer(6, 6, 6, 6, 6, 6, 6, 6, 6)
     for i in range(GAMES_TO_SIM):
         server.pick_lobby(model.player_list)
     if SHOW_GRAPHS:
