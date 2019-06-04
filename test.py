@@ -1,3 +1,11 @@
+# =======================================================================
+#                           General Documentation
+
+"""Module that contains player class
+"""
+
+# ---------------- Module General Import and Declarations ---------------
+
 import unittest
 from Model import Model
 from Player import Player

@@ -6,39 +6,82 @@ Tests for Server Class
 """
 
 # ---------------- Module General Import and Declarations ---------------
+
 import server
 from Model import Model
 import Graphing
 
-SHOW_GRAPHS = True
 
+#- Global variable to determine if graphs should be shown
+
+SHOW_GRAPHS = True
+AMOUNT_OF_MATCHES = 1000
 
 class Tests(object):
     """
     Testing object for when test.py is ran through main
     """
 
+    # -------------------- Function: test_one_round ------------------------------------
+    
     def test_one_round(self):
+        """Tests one round of matches
+        """
+        
+        #-Creates a model and runs a round of matches
+        
         model = Model()
         server.pick_lobby(model.player_list)
+        
+        #- Shows graphs of the players
+        
         if SHOW_GRAPHS:
             Graphing.showMMR(model.player_list)
             Graphing.showRanksUnsorted(model.player_list)
 
+
+    # -------------------- Function: test_multiple_rounds ------------------------------------
+    
     def test_multiple_rounds(self):
+        """Tests multiple rounds of matches
+        """
+        
+        #-Creates model
+        
         model = Model()
-        model.player_list[0].createUserPlayer(6, 6, 6, 6,
-                         6, 6, 6, 6,
-                         6)
-        for i in range(1000):
+        
+        
+        #-Sets the first player to whatever stats you want them to have
+        
+        model.player_list[0].createUserPlayer(6, 6, 6, 6, 6, 6, 6, 6, 6)
+                         
+                         
+        #-Runs AMOUNT_OF_MATCHES matches
+        
+        for i in range(AMOUNT_OF_MATCHES):
             server.pick_lobby(model.player_list)
+            
+        
+        #-Shows graphs for the players
+        
         if SHOW_GRAPHS:
             Graphing.showMMR(model.player_list)
             Graphing.showRanksUnsorted(model.player_list)
             Graphing.showPlayerStats(model.player_list)
+            
+            
+        #-Reads info to csv
+        
         model.to_csv()
 
+    
+    # -------------------- Function: test_match_winner_handling ------------------------------------
+    
     def test_match_winner_handling(self):
+        """Creates players and tests if their stats
+            match the ones it should
+        """
+        
         players = server._test_match_winner_handling()
         self.assertEqual(1517, players[0].mmr, msg='Win Below MMR')
         self.assertEqual(87, players[0].lp, msg='Win Below LP')

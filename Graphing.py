@@ -2,8 +2,6 @@
 #                           General Documentation
 
 """Multi Function module to show figures and graphs of data.
-
-    see function docstring for description
 """
 
 # ---------------- Module General Import and Declarations ---------------
@@ -14,6 +12,7 @@ import matplotlib.pyplot as plt
 
 
 # -------------------- General Function:showPlayerStats ---------------------
+
 def showPlayerStats(players):
     """This will look for the player the user created and get the stats
     
@@ -315,6 +314,8 @@ def showMMR(players):
     mmr = np.zeros(size)
     skill = np.zeros(size)
     ranks = np.zeros(size)
+    
+    
     # - Sets the data in the arrays for mmr and skill
 
     for i in range(size):
@@ -326,6 +327,7 @@ def showMMR(players):
                    players[i].mechanics
         ranks[i] = players[i].rank
 
+
     # -Plots the histogram
 
     plt.figure(1)
@@ -334,18 +336,22 @@ def showMMR(players):
     plt.xlabel("MMR")
     plt.ylabel("Frequency")
 
+
     # - Graphs the scatter plot and line of best fit
 
     plt.figure(2)
     plt.scatter(skill, mmr)
 
+
     # - Borrowed from https://stackoverflow.com/questions/22239691/code-for-best-fit-straight-line-of-a-scatter-plot-in-python
+    
     plt.plot(np.unique(skill), np.poly1d(np.polyfit(skill, mmr, 1))(np.unique(skill)), "r-")
 
     plt.title("Aggregate Skill vs. MMR")
     plt.axis([10, 80, 0, 2800])
     plt.xlabel("Skill")
     plt.ylabel("MMR")
+
 
     # -Plots histogram for skill and rank
 
@@ -360,6 +366,7 @@ def showMMR(players):
     plt.title("Rank distrubution")
     plt.xlabel("rank")
     plt.ylabel("frequency")
+
 
     # -Shows the plots
 

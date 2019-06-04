@@ -6,6 +6,7 @@ Tests for Player Class
 """
 
 # ---------------- Module General Import and Declarations ---------------
+
 from Player import Player
 
 
@@ -13,8 +14,14 @@ class Tests(object):
     """
     Testing object for when test.py is ran through main
     """
-
+    
+    # -------------------- Function: test_player_init ------------------------------------
+    
     def test_player_init(self):
+        """Creates a player using init and checks if the stats
+            match what they should
+        """
+        
         player = Player()
         self.assertEqual(player.mmr, 1500)
         self.assertTrue(player.rankUpMatch is False)
@@ -27,6 +34,9 @@ class Tests(object):
         self.assertEqual(player.rankDivision, 1)
         self.assertEqual(player.lp, 0)
 
+
+    # -------------------- Function: test_player_ranking ------------------------------------
+    
     def test_player_ranking(self):
         """
         Starting from lowest rank and division, rank to highest rank and division

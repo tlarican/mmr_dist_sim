@@ -2,8 +2,6 @@
 #                           General Documentation
 
 """Module that contains player class
-
-    see function docstring for description
 """
 
 # ---------------- Module General Import and Declarations ---------------
@@ -239,6 +237,7 @@ class Player(object):
         self.late_game = late_game
         self.mechanics = mechanics
 
+
     # -------------------- Function: _test_rank_methods ------------------------
 
     def _test_rank_min_max(self):
@@ -269,6 +268,9 @@ class Player(object):
         division_down = self.rankDivision
         return rank_up, division_up, rank_down, division_down
 
+
+    # -------------------- Function: _test_placements ------------------------
+    
     def _test_placements(self, mmr):
         """
         Testing placement portion of rankUp

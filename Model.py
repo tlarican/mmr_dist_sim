@@ -2,8 +2,6 @@
 #                           General Documentation
 
 """Module that contains the Model class
-
-    see function docstring for description
 """
 
 # ---------------- Module General Import and Declarations ---------------
@@ -21,6 +19,7 @@ class Model(object):
     """
     Mainly holds the players to run matches on.
     """
+    
     def __init__(self, number_players=1000):
         """
         Create list of player objects
@@ -30,7 +29,12 @@ class Model(object):
         for i in range(number_players):
             self.player_list.append(Player())
 
+    
+    # -------------------- Function: to_csv ------------------------------------
+    
     def to_csv(self):
+        """Write out info for analysis
+        """
         with open('Players.csv', 'wt', newline='\n') as out:
             fields = ('mmr', 'communication', 'tilt', 'internet', 'leadership',
                       'gameKnowledge', 'reactionTimes', 'early_game',
@@ -44,6 +48,9 @@ class Model(object):
                        iplayer.early_game, iplayer.late_game, iplayer.mechanics)
                 writer.writerow(row)
 
+    
+    # -------------------- Function: _test_player_list_size ------------------------------------
+    
     def _test_player_list_size(self):
         """
         Testing if amount of players initialized is correct
