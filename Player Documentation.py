@@ -47,6 +47,7 @@ Allows the player to rank up and assigns rank based on mmr
 
 Variables: 
     bucket = To the bucket/rank the player should fall into
+    
 Method Arguments:
     * self: Instance of the class. Allows access to attributes and methods
         within the Player class.
@@ -96,6 +97,7 @@ Testing ranking methods in test suite
 Return: 
     rank after rankUp, division after rankUp,rank after rankDown, 
     division after rankDown
+    
 Method Arguments:
     * self: Instance of the class. Allows access to attributes and methods
         within the Player class.
@@ -107,6 +109,7 @@ def _test_placements(self, mmr):
 Testing placement portion of rankUp
 
 Return: rank and division
+
 Method Arguments:
     * mmr for bucket test
     * self: Instance of the class. Allows access to attributes and methods

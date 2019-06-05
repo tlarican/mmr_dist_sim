@@ -50,6 +50,7 @@ def _test_player_list_size(self):
 Testing if amount of players initialized is correct.
 
 Return: amount of players initialized.
+
 Variables:
     * GAMES_TO_SIM: Amount of games that will be simulated.
     * SHOW_GRAPHS: If graphs should be displayed.
