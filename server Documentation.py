@@ -1,4 +1,4 @@
-# =============================Model.py================================
+# =============================server.py================================
 # General Documentation
 
 """ Module that contains functions that deal with matches between
@@ -26,7 +26,8 @@
 #
 #---------------------------- Global Variables ---------------------------
 """
-TEAM_SIZE = 5
+Global Variabls:
+    * TEAM_SIZE = 5
 """
 #
 #
