@@ -430,3 +430,80 @@ def _test_match_winner_handling():
 
     handleMatchResults(player_list, 2, 1500)
     return player_list
+
+
+
+
+
+
+
+
+
+
+def _test_match_winner_handling():
+    player_list = []
+    for i in range(10):
+        player_list.append(Player())
+
+    #  Winning below MMR average
+
+    player_list[0].mmr = 1000
+    player_list[0].rank = 2
+    player_list[0].rankDivision = 3
+
+    #  Winning above MMR average
+
+    player_list[1].mmr = 2000
+    player_list[1].rank = 4
+    player_list[1].rankDivision = 1
+
+    #  100 LP
+
+    player_list[2].mmr = 1000
+    player_list[2].rank = 2
+    player_list[2].rankDivision = 3
+    player_list[2].lp = 99
+
+    #  Require Rank Up
+
+    player_list[3].mmr = 2000
+    player_list[3].rank = 4
+    player_list[3].rankDivision = 1
+    player_list[3].rankUpMatch = True
+    player_list[3].amountOfGamesPlayed = 20
+
+    player_list[4].mmr = 1000
+
+    #  Losing below MMR average
+
+    player_list[5].mmr = 2000
+    player_list[5].rank = 4
+    player_list[5].rankDivision = 1
+    player_list[5].lp = 50
+
+    #  Losing above MMR average
+
+    player_list[6].mmr = 1000
+    player_list[6].rank = 2
+    player_list[6].rankDivision = 3
+    player_list[6].lp = 50
+
+    #  0 LP
+
+    player_list[7].mmr = 2000
+    player_list[7].rank = 4
+    player_list[7].rankDivision = 1
+    player_list[7].lp = 1
+
+    #  Require rank down
+
+    player_list[8].mmr = 1000
+    player_list[8].rank = 2
+    player_list[8].rankDivision = 3
+    player_list[8].rankDownMatch = True
+    player_list[8].amountOfGamesPlayed = 20
+
+    player_list[9].mmr = 2000
+
+    handleMatchResults(player_list, 2, 1500)
+    return player_list
